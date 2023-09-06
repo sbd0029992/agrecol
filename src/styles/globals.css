@@ -1,0 +1,29 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* For reusable components, keep using @layer */
+@layer components {
+  .background-image {
+    @apply h-full w-full bg-cover bg-center bg-no-repeat;
+  }
+}
+
+/* Use @apply instead of @layer for one-off components */
+.background-registerProduct {
+  @apply flex w-1/2 flex-col items-center justify-center gap-3 bg-cover bg-center bg-no-repeat p-4 text-3xl font-semibold text-white;
+  background-image: url('/images/imgListProduct.jpg');
+}
+
+/* Use @apply instead of @layer for one-off components */
+.background-listProduct {
+  @apply flex w-1/2 flex-col items-center justify-center gap-3 bg-cover bg-center bg-no-repeat p-4 text-3xl font-semibold text-white;
+  background-image: url('/images/imgRegisterProduct.jpg');
+}
+
+/* En tu archivo CSS */
+.noArrows::-webkit-inner-spin-button,
+.noArrows::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
