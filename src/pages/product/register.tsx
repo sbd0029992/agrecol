@@ -2,7 +2,7 @@ import React from 'react';
 
 function Register() {
   return (
-    <div className='flex h-full min-h-screen flex-row'>
+    <div className='m-auto flex h-full min-h-[90vh] w-1/2 flex-row py-2'>
       <div className='w-full self-center px-10 '>
         <div className='m-auto flex h-[99%] w-3/4 flex-col items-center  justify-center'>
           <div className='flex w-full flex-col items-center justify-center gap-3 '>

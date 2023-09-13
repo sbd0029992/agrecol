@@ -7,6 +7,7 @@ function List() {
     { name: 'Limones', price: 20 },
     { name: 'Durazno', price: 5 },
     { name: 'Platano', price: 2 },
+    { name: 'Fresas', price: 1 },
   ];
 
   const [searchTerm, setSearchTerm] = useState('');
