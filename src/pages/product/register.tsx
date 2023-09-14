@@ -28,7 +28,7 @@ function Register() {
               <option value='11'>Estante 2</option>
             </select>
             <h1 className='self-start text-lg text-gray-400'>
-              Fecha de Recepcion
+              Fecha de Recepción
             </h1>
             <input
               className='h-[50px] w-full rounded-md border-2 border-fourtiary  px-2'

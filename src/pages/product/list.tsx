@@ -6,7 +6,7 @@ function List() {
   const products = [
     { name: 'Limones', price: 20 },
     { name: 'Durazno', price: 5 },
-    { name: 'Platano', price: 2 },
+    { name: 'Plátano', price: 2 },
     { name: 'Fresas', price: 1 },
   ];
 

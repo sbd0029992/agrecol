@@ -14,7 +14,7 @@ function index() {
           className='flex flex-row items-center gap-2 self-center'
         >
           <FaArrowLeft className='text-lg text-gray-400' />
-          <p className='font-semibold text-gray-400'>Atras</p>
+          <p className='font-semibold text-gray-400'>Atrás</p>
         </Link>
         <div className='m-auto flex h-[99%] w-3/4 flex-col items-center  justify-center'>
           <div className='flex w-full flex-col items-center justify-center gap-5 '>

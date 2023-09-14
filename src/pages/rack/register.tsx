@@ -14,11 +14,11 @@ export default function register() {
           placeholder='Introducir nombre de estante'
         />
         <h1 className='self-start text-lg text-gray-400'>
-          Descripccion Estante
+          Descripción Estante
         </h1>
         <textarea
           className='h-[100px] w-full rounded-md border-2 border-fourtiary px-2  sm:h-2/6'
-          placeholder='Descripccion de estante'
+          placeholder='Descripción de estante'
         />
 
         <button className='h-[50px] w-[300px] rounded-md bg-primary text-white'>

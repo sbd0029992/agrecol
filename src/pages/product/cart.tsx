@@ -7,7 +7,7 @@ function Cart() {
     <div>
       <div>
         <Link href='/'>
-          <h1 className=''>Comprar mas Productos?</h1>
+          <h1 className=''>Desea comprar más productos?</h1>
         </Link>
       </div>
       <table className='m-auto w-2/3'>

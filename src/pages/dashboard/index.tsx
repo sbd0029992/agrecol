@@ -16,7 +16,7 @@ const index = () => {
   const cajeroNames = ['Juan', 'Pedro', 'Maria', 'Jose'];
   const cajeroSold = [20, 20, 10, 20];
 
-  const productSoldLabel = ['Piña', 'Platano', 'manzana'];
+  const productSoldLabel = ['Piña', 'Plátano', 'manzana'];
   const productSoldData = [20, 100, 50];
 
   return (
@@ -27,7 +27,7 @@ const index = () => {
         weeklyData={weeklyData}
         monthlyData={monthlyData}
         yearlyData={yearlyData}
-        title='Producto mas vendido '
+        title='Producto más vendido '
       />
       <LineChart weeklyData={weekDataSold} monthlyData={monthDataSold} />
       <DonusChart labels={cajeroNames} data={cajeroSold} />
