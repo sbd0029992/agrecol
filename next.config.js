@@ -8,7 +8,7 @@ const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
   images: {
-    //domains: [`${process.env.AWS_DOMAIN}`, 'scontent.fvvi1-2.fna.fbcdn.net'],
+    domains: [`${process.env.AWS_DOMAIN}`, 'scontent.fvvi1-2.fna.fbcdn.net'],
   },
 
   webpack(config) {

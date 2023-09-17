@@ -13,6 +13,22 @@ Es recomendable usar **npm** para una correcta instalación de las dependencias.
 npm install
 ```
 
+### 2. Variables de Entorno
+
+Crear un archivo .env en la raiz del proyecto que tenga los siguientes valores.
+
+```bash
+MONGODB_URL = "mongodb+srv://admin:p1ZkUjpvjO6n7qck@agrecol.fpbswfd.mongodb.net/agrecol"
+NODE_ENV= "development"
+SECRET_COOKIE_PASSWORD = "KTE2iWWSeoAA.PWEL4TyQ1rVcXiOZgPyiSsI1HuwcdCK"
+AWS_ACCESS_KEY_ID=""
+AWS_SECRET_ACCESS_KEY=""
+AWS_REGION="sa-east-1"
+AWS_BUCKET_NAME=""
+AWS_DOMAIN=""
+NEXT_PUBLIC_API_URL="http://localhost:3000"
+```
+
 ### 2. Ejecuta el servidor de desarrollo
 
 Puedes iniciar el servidor en modo produccion usando este comando:

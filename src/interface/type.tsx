@@ -29,3 +29,21 @@ export interface LineChartProps {
   weeklyLabels?: string[];
   monthlyLabels?: string[];
 }
+
+export interface AuthServiceProps {
+  validate: (password: string, dbPassword: string) => Promise<boolean>;
+}
+
+export interface IronSessionProps {
+  password: string;
+  cookieName: string;
+}
+
+// RegisterUser.tsx
+export interface NewUser {
+  name: string;
+  email: string;
+  password?: string;
+  status: string;
+  type: string;
+}
