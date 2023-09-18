@@ -1,11 +1,10 @@
+import Home from 'pages/home';
 import React from 'react';
-
-import Login from './login';
 
 function index() {
   return (
     <React.Fragment>
-      <Login />
+      <Home />
     </React.Fragment>
   );
 }

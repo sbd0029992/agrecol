@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import bcrypt from 'bcryptjs';
-import User from 'models/User';
+import Rack from 'models/Rack';
 import { dbConnect } from 'utils/mongosee';
 
 dbConnect();
@@ -11,18 +10,18 @@ async function handler(req: any, res: any) {
   switch (method) {
     case 'GET':
       try {
-        const allUsers = await User.find({});
-        return res.status(200).json(allUsers);
+        const allRacks = await Rack.find({});
+        return res.status(200).json(allRacks);
       } catch (error: any) {
         return res.status(400).json({ error: error.message });
       }
     case 'POST':
       try {
-        const saltRounds = 10;
-        const hashedPassword = await bcrypt.hash(body.password, saltRounds);
-        body.password = hashedPassword;
-        const newUser = new User(body);
-        const savedUser = await newUser.save();
+        if (!body.name || !body.description) {
+          return res.status(400).json({ error: 'Password is required' });
+        }
+        const newRack = new Rack(body);
+        const savedUser = await newRack.save();
         return res.status(201).json(savedUser);
       } catch (error: any) {
         console.error('Error stack:', error.stack);

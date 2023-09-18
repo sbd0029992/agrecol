@@ -19,8 +19,13 @@ export default withSession(async (req: any, res: any) => {
     const user = await dbService.getUser(email);
     const passwordMatches = await authService.validate(password, user.password);
     if (passwordMatches) {
-      await saveSession({ idUser: user._id, type: user.type }, req);
-      res.status(200).json({ idUser: user._id, type: user.type });
+      await saveSession(
+        { idUser: user._id, type: user.type, name: user.name },
+        req
+      );
+      res
+        .status(200)
+        .json({ idUser: user._id, type: user.type, name: user.name });
       return;
     }
   } catch (error: any) {
@@ -30,7 +35,7 @@ export default withSession(async (req: any, res: any) => {
 });
 
 async function saveSession(user: any, request: any) {
-  const { idUser, type } = user;
-  request.session.set('user', { idUser, type });
+  const { idUser, type, name } = user;
+  request.session.set('user', { idUser, type, name });
   await request.session.save();
 }

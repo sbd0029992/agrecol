@@ -1,9 +1,9 @@
 import Link from 'next/link';
 import React from 'react';
 
-function MyComponent() {
+function Home() {
   return (
-    <div className='flex min-h-[90vh] flex-row'>
+    <div className='flex h-full min-h-[90vh] flex-row'>
       <div className='background-registerProduct'>
         <Link href='/product/list' className='flex flex-col gap-1 text-center '>
           <h1>LISTA</h1>
@@ -23,4 +23,4 @@ function MyComponent() {
   );
 }
 
-export default MyComponent;
+export default Home;

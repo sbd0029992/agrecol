@@ -5,14 +5,8 @@ const UserSchema = new Schema(
     name: {
       type: String,
       trim: true,
-      maxlength: [20, 'Plate cannot be more than 20 characters'],
+      maxlength: [60, 'Plate cannot be more than 20 characters'],
       unique: false,
-    },
-    type: {
-      type: String,
-      trim: true,
-      maxlength: [20, 'Plate cannot be more than 20 characters'],
-      default: 'user',
     },
     email: {
       type: String,
@@ -20,9 +14,37 @@ const UserSchema = new Schema(
       maxlength: [40, 'Plate cannot be more than 40 characters'],
       unique: true,
     },
+    gender: {
+      type: String,
+      trim: true,
+      maxlength: [20, 'Plate cannot be more than 20 characters'],
+    },
+    birthdate: {
+      type: String,
+      trim: true,
+      maxlength: [20, 'Plate cannot be more than 20 characters'],
+    },
+    ci: {
+      type: String,
+      trim: true,
+      maxlength: [20, 'Plate cannot be more than 20 characters'],
+      unique: true,
+    },
+    phone: {
+      type: String,
+      trim: true,
+      maxlength: [20, 'Plate cannot be more than 20 characters'],
+      unique: true,
+    },
     password: {
       type: String,
       maxlength: [60, 'Plate cannot be more than 40 characters'],
+    },
+    type: {
+      type: String,
+      trim: true,
+      maxlength: [20, 'Plate cannot be more than 20 characters'],
+      default: 'user',
     },
     status: {
       type: String,

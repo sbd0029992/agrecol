@@ -9,11 +9,11 @@ interface LayoutProps {
 const Layout: React.FC<LayoutProps> = ({ children }) => {
   const router = useRouter();
   const { asPath } = router;
-  const noNav = ['/'];
+  const noNav = ['/login'];
   return (
     <>
       {noNav.includes(asPath) ? null : (
-        <div className='h-[10vh]'>
+        <div className='h-[10vh] '>
           <Navbar />
         </div>
       )}

@@ -1,3 +1,4 @@
+/* eslint-disable unused-imports/no-unused-vars */
 export interface PieChartProps {
   labels: string[];
   title: string;
@@ -40,10 +41,37 @@ export interface IronSessionProps {
 }
 
 // RegisterUser.tsx
-export interface NewUser {
+export interface NewUserProps {
   name: string;
   email: string;
-  password?: string;
+  gender: string;
+  birthdate: string;
+  ci: string;
+  phone: string;
+  password: string;
+}
+
+export interface RackProps {
+  name: string;
+  description: string;
   status: string;
   type: string;
+}
+
+export type ResponseType<T> = {
+  data: T | null;
+  error: Error | null;
+};
+
+export type UseMutationResponse<T> = {
+  response: Response | null;
+  error: Error | null;
+  mutate: () => Promise<void>;
+};
+
+export interface DataCookieType {
+  isLoggedIn: boolean;
+  idUser: string;
+  type: string;
+  name: string;
 }

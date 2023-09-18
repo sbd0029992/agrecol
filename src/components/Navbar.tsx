@@ -15,8 +15,8 @@ function Navbar() {
 
   return (
     <React.Fragment>
-      <nav className='border-gray-200 bg-white dark:bg-fourtiary '>
-        <div className='mx-auto flex max-w-screen-xl flex-wrap items-center justify-between p-4'>
+      <nav className='flex h-full flex-col items-center justify-center bg-fourtiary'>
+        <div className='flex w-full flex-wrap items-center justify-evenly p-4'>
           <Link href='/home' className='flex items-center'>
             <img
               src='https://flowbite.com/docs/images/logo.svg'
@@ -40,7 +40,7 @@ function Navbar() {
               </li>
               <li>
                 <Link
-                  href='/user/register'
+                  href='/user/new'
                   className='block rounded py-2 pl-3 pr-4 text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:border-0 md:p-0 md:hover:bg-transparent md:hover:text-blue-700 md:dark:hover:bg-transparent md:dark:hover:text-blue-500'
                 >
                   Registro Cajero
@@ -48,7 +48,7 @@ function Navbar() {
               </li>
               <li>
                 <Link
-                  href='/rack/register'
+                  href='/rack/new'
                   className='block rounded py-2 pl-3 pr-4 text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:border-0 md:p-0 md:hover:bg-transparent md:hover:text-blue-700 md:dark:hover:bg-transparent md:dark:hover:text-blue-500'
                 >
                   Registrar Estante
