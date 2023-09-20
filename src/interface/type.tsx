@@ -42,13 +42,14 @@ export interface IronSessionProps {
 
 // RegisterUser.tsx
 export interface NewUserProps {
-  name: string;
-  email: string;
-  gender: string;
-  birthdate: string;
-  ci: string;
-  phone: string;
-  password: string;
+  _id?: string;
+  name?: string;
+  email?: string;
+  gender?: string;
+  birthdate?: string;
+  ci?: string;
+  phone?: string;
+  password?: string;
 }
 
 export interface RackProps {

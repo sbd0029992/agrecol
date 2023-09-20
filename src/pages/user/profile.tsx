@@ -15,14 +15,14 @@ function Profile() {
       if (dataCookie?.idUser) {
         const res = await fetch(`/api/users/${dataCookie.idUser}`);
         const data = await res.json();
-        setNewUser(data.user); // Accede a la propiedad 'user' aquí
+        setNewUser(data.user);
       }
     } catch (error) {
       console.log(error);
     }
   };
   useEffect(() => {
-    if (dataCookie?.idUser && query.id) {
+    if (dataCookie !== null) {
       getUser();
     }
   }, [query.id, dataCookie]);
@@ -30,11 +30,12 @@ function Profile() {
   return (
     <div className='flex h-full min-h-[90vh] flex-col items-center justify-center'>
       <CardProfile
+        id={newUser?._id || 'Loading...'}
         name={newUser?.name || 'Loading...'}
-        ci='10101010'
-        email='pepito@gmail.com'
-        date='10/10/1990'
-        phone='70707070'
+        ci={newUser?.ci || 'Loading...'}
+        email={newUser?.email || 'Loading...'}
+        date={newUser?.birthdate || 'Loading...'}
+        phone={newUser?.phone || 'Loading...'}
       />
     </div>
   );

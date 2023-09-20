@@ -5,9 +5,11 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import { FaArrowLeft } from 'react-icons/fa';
+import { toast } from 'react-toastify';
 
 const Register: React.FC = () => {
-  const { query } = useRouter();
+  const { query, push } = useRouter();
+  const [showPasswordField, setShowPasswordField] = useState(true);
   const [newUser, setNewUser] = useState<NewUserProps>({
     name: '',
     email: '',
@@ -22,7 +24,15 @@ const Register: React.FC = () => {
     try {
       const res = await fetch(`/api/users/${query.id}`);
       const { user } = await res.json();
-      setNewUser(user);
+      setNewUser({
+        name: user.name,
+        email: user.email,
+        gender: user.gender,
+        birthdate: user.birthdate,
+        ci: user.ci,
+        phone: user.phone,
+      });
+      setShowPasswordField(false);
     } catch (error) {
       console.log(error);
     }
@@ -49,13 +59,15 @@ const Register: React.FC = () => {
   };
 
   const updateUser = async () => {
+    const updatedUser = { ...newUser };
+    delete updatedUser.password;
     try {
       await fetch(`/api/users/${query.id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(newUser),
+        body: JSON.stringify(updatedUser),
       });
     } catch (error) {
       console.log(error);
@@ -73,9 +85,12 @@ const Register: React.FC = () => {
     e.preventDefault();
     if (query.id) {
       await updateUser();
+      toast.success('Usuario actualizado con exito');
+      push('/user/profile');
     } else {
       await createUser();
-      console.log(newUser);
+      toast.success('Usuario registrado con exito');
+      push('/home');
     }
   };
 
@@ -119,7 +134,6 @@ const Register: React.FC = () => {
                 className='h-[50px] w-full rounded-md border-2 border-fourtiary bg-white  px-2'
                 value={newUser.gender}
               >
-                <option value=''>Seleccionar</option>
                 <option value='M'>Masculino</option>
                 <option value='F'>Femenino</option>
               </select>
@@ -166,15 +180,32 @@ const Register: React.FC = () => {
                 placeholder='Introducir su correo electronico'
                 value={newUser.email}
               />
-              <h1 className='self-start text-lg text-gray-400'>Contraseña</h1>
-              <input
-                id='password'
-                onChange={handleChange}
-                className='h-[50px] w-full rounded-md border-2 border-fourtiary  px-2'
-                type='password'
-                placeholder='Introducir una contraseña'
-                value={newUser.password}
-              />
+              {showPasswordField && (
+                <React.Fragment>
+                  <h1 className='self-start text-lg text-gray-400'>
+                    Contraseña
+                  </h1>
+                  <input
+                    id='password'
+                    onChange={handleChange}
+                    className='h-[50px] w-full rounded-md border-2 border-fourtiary  px-2'
+                    type='password'
+                    placeholder='Introducir una contraseña'
+                    value={newUser.password}
+                  />
+                  <h1 className='self-start text-lg text-gray-400'>
+                    Confirmar Contraseña
+                  </h1>
+                  <input
+                    id='password'
+                    onChange={handleChange}
+                    className='h-[50px] w-full rounded-md border-2 border-fourtiary  px-2'
+                    type='password'
+                    placeholder='Introducir una contraseña'
+                    value={newUser.password}
+                  />
+                </React.Fragment>
+              )}
               <button
                 type='submit'
                 className='h-[50px] w-[300px] rounded-md bg-primary text-white'

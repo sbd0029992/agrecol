@@ -2,6 +2,7 @@ import Link from 'next/link';
 import React from 'react';
 
 interface CardProfileProps {
+  id: string;
   name: string;
   ci: string;
   email: string;
@@ -9,9 +10,9 @@ interface CardProfileProps {
   phone: string;
 }
 
-function CardProfile({ name, ci, email, date, phone }: CardProfileProps) {
+function CardProfile({ id, name, ci, email, date, phone }: CardProfileProps) {
   return (
-    <div className='ounded-lg flex h-full w-[300px] flex-col items-center justify-center gap-2 rounded-lg bg-gray-200 py-4 px-6 shadow-md'>
+    <div className='flex h-full w-[300px] flex-col items-center justify-center gap-2 rounded-lg rounded-lg bg-gray-200 py-4 px-6 shadow-md'>
       <h1 className='text-2xl font-bold'>Cajero</h1>
       <div className='my-2 w-full border-b border-gray-400'></div>
       <div className='self-start'>
@@ -34,12 +35,18 @@ function CardProfile({ name, ci, email, date, phone }: CardProfileProps) {
         <h2 className='text-lg font-semibold'>Teléfono:</h2>
         <p className='text-gray-800'>{phone}</p>
       </div>
-      <div>
+      <div className='flex flex-row justify-evenly gap-2'>
         <Link
-          href='/user/register'
-          className='rounded-lg bg-secondary py-2 px-4 text-white'
+          href={`/user/${id}/edit`}
+          className='rounded-lg bg-secondary py-2 px-4 text-sm text-white'
         >
           Editar Perfil
+        </Link>
+        <Link
+          href={`/user/${id}/password`}
+          className='rounded-lg bg-secondary py-2 px-4 text-sm text-white'
+        >
+          Cambiar Pass
         </Link>
       </div>
     </div>
