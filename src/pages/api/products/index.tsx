@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import Rack from 'models/Rack';
+import Product from 'models/Product';
 import { dbConnect } from 'utils/mongosee';
 
 dbConnect();
@@ -10,16 +10,16 @@ async function handler(req: any, res: any) {
   switch (method) {
     case 'GET':
       try {
-        const allRacks = await Rack.find({});
-        return res.status(200).json(allRacks);
+        const allProducts = await Product.find({});
+        return res.status(200).json(allProducts);
       } catch (error: any) {
         return res.status(400).json({ error: error.message });
       }
     case 'POST':
       try {
-        const newRack = new Rack(body);
-        const savedRack = await newRack.save();
-        return res.status(201).json(savedRack);
+        const newProduct = new Product(body);
+        const savedProduct = await newProduct.save();
+        return res.status(201).json(savedProduct);
       } catch (error: any) {
         console.error('Error stack:', error.stack);
         return res.status(400).json({ error: error.message });

@@ -1,50 +1,76 @@
+/* eslint-disable @next/next/no-img-element */
+import { ProductProps } from 'interface/type';
+import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 
-import ItemProduct from '../../components/ItemProduct';
-
-function List() {
-  const products = [
-    { name: 'Limones', price: 20 },
-    { name: 'Durazno', price: 5 },
-    { name: 'Plátano', price: 2 },
-    { name: 'Fresas', price: 1 },
-  ];
-
-  const [searchTerm, setSearchTerm] = useState('');
-  const [filteredProducts, setFilteredProducts] = useState(products);
+const ListRack: React.FC = () => {
+  const [newProduct, setNewProduct] = useState<ProductProps[]>([]);
+  const getProduct = async () => {
+    try {
+      const res = await fetch(`/api/products`);
+      const products = await res.json();
+      setNewProduct(products);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   useEffect(() => {
-    setFilteredProducts(
-      products.filter((product) =>
-        product.name.toLowerCase().includes(searchTerm.toLowerCase())
-      )
+    getProduct();
+  }, []);
+
+  if (!newProduct || !newProduct.length)
+    return (
+      <div className='p-4'>
+        <Link
+          href='/product/new'
+          className='rounded-md bg-secondary py-2 px-4 text-lg text-white'
+        >
+          Registrar Productos
+        </Link>
+      </div>
     );
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [searchTerm]);
 
   return (
-    <div className='flex h-full min-h-screen flex-row'>
-      <div className='w-full px-10 py-4'>
-        <div className='flex items-center self-center'>
-          <input
-            className='h-[50px] w-[300px] rounded-md border-2 px-2'
-            type='text'
-            placeholder='Buscar'
-            onChange={(e) => setSearchTerm(e.target.value)}
-          />
-        </div>
-        <div className='flex flex-row flex-wrap justify-center gap-5'>
-          {filteredProducts.map((product, index) => (
-            <ItemProduct
-              key={index}
-              name={product.name}
-              price={product.price}
+    <div className='flex flex-row items-center justify-center gap-5 p-4'>
+      {newProduct.map((product: ProductProps) => (
+        <div
+          key={product._id}
+          className='overflow-hidden rounded bg-gray-200 py-4 px-2 shadow-xl '
+        >
+          {product.photos && product.photos.length > 0 ? (
+            <img
+              className='h-[200px] w-[200px] rounded-md object-cover'
+              src={product.photos[0]}
+              alt={product.name}
             />
-          ))}
+          ) : (
+            <div className='flex h-[200px] w-[200px] flex-col items-center justify-center rounded-md bg-white '>
+              <h1 className='text-lg font-bold'>Imagen no disponible</h1>
+            </div>
+          )}
+
+          <div className='px-6 py-4'>
+            <div className='mb-2 text-xl font-bold'>{product.name}</div>
+            <p className='text-base text-gray-700'>{product.description}</p>
+          </div>
+          <div className='px-6 pt-4 pb-2'>
+            <span className='mr-2 inline-block rounded-full bg-gray-200 px-3 py-1 text-sm font-semibold text-gray-700'>
+              {product.status == '1' ? 'Disponible' : 'No Disponible'}
+            </span>
+          </div>
+          <div className='mt-2 flex flex-row items-center justify-center'>
+            <Link
+              className='rounded-md bg-secondary py-2 px-4 text-lg text-white'
+              href={`/product/${product._id}/edit`}
+            >
+              Editar
+            </Link>
+          </div>
         </div>
-      </div>
+      ))}
     </div>
   );
-}
+};
 
-export default List;
+export default ListRack;

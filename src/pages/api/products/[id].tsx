@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable import/no-anonymous-default-export */
+import Product from 'models/Product';
 import Rack from 'models/Rack';
 import { dbConnect } from 'utils/mongosee';
 
@@ -15,29 +16,29 @@ async function handler(req: any, res: any) {
   switch (method) {
     case 'GET':
       try {
-        const rack = await Rack.findById(id);
-        if (!rack) {
-          return res.status(404).end(`Rack not found`);
-        }
-        return res.status(200).json({ rack });
+        const product = await Product.findById(id).populate({
+          path: 'rack',
+          model: Rack,
+        });
+        return res.status(200).json({ product });
       } catch (error: any) {
         return res.status(500).json({ msg: error.message });
       }
     case 'PUT':
       try {
-        const updateRack = await Rack.findByIdAndUpdate(id, body, {
+        const updateProduct = await Product.findByIdAndUpdate(id, body, {
           new: true,
         });
-        if (!updateRack) return res.status(404).end(`Rack not found`);
-        return res.status(200).json({ updateRack });
+        if (!updateProduct) return res.status(404).end(`Product not found`);
+        return res.status(200).json({ updateProduct });
       } catch (error: any) {
         return res.status(400).json({ msg: error.message });
       }
     case 'DELETE':
       try {
-        const deleteRack = await Rack.findByIdAndDelete(id);
-        if (!deleteRack) return res.status(404).end(`Rack not found`);
-        return res.status(204).json({ deleteRack });
+        const deleteProduct = await Product.findByIdAndDelete(id);
+        if (!deleteProduct) return res.status(404).end(`Product not found`);
+        return res.status(204).json({ deleteProduct });
       } catch (error: any) {
         return res.status(400).json({ msg: error.message });
       }

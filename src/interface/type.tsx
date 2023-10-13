@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable unused-imports/no-unused-vars */
 export interface PieChartProps {
   labels: string[];
@@ -51,12 +52,23 @@ export interface NewUserProps {
   phone?: string;
   password?: string;
 }
+export interface ProductProps {
+  _id?: string;
+  name?: string;
+  description?: string;
+  rack?: any;
+  receptionDate?: string;
+  weight?: string;
+  price?: number | any;
+  status?: string;
+  photos?: string[] | any;
+}
 
 export interface RackProps {
+  _id?: string;
   name: string;
   description: string;
-  status: string;
-  type: string;
+  status?: string;
 }
 
 export type ResponseType<T> = {
@@ -75,4 +87,12 @@ export interface DataCookieType {
   idUser: string;
   type: string;
   name: string;
+}
+
+export interface CardProps {
+  _id?: string | any;
+  user: NewUserProps;
+  product: ProductProps;
+  quantity: number;
+  status?: string;
 }

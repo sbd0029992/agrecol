@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @next/next/no-img-element */
 /* eslint-disable react-hooks/exhaustive-deps */
 import { NewUserProps } from 'interface/type';
@@ -36,7 +37,7 @@ const Register: React.FC = () => {
     }
   }, [query.id]);
 
-  const handleChangePassword = (e) => {
+  const handleChangePassword = (e: any) => {
     const { id, value } = e.target;
     setPasswordData((prevPasswordData) => ({
       ...prevPasswordData,
@@ -44,7 +45,7 @@ const Register: React.FC = () => {
     }));
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
     if (query.id) {
       await updatePassword();

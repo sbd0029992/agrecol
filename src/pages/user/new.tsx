@@ -10,6 +10,7 @@ import { toast } from 'react-toastify';
 const Register: React.FC = () => {
   const { query, push } = useRouter();
   const [showPasswordField, setShowPasswordField] = useState(true);
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [newUser, setNewUser] = useState<NewUserProps>({
     name: '',
     email: '',
@@ -78,7 +79,11 @@ const Register: React.FC = () => {
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
     const { id, value } = e.target;
-    setNewUser({ ...newUser, [id]: value });
+    if (id === 'confirmPassword') {
+      setConfirmPassword(value);
+    } else {
+      setNewUser({ ...newUser, [id]: value });
+    }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -197,17 +202,24 @@ const Register: React.FC = () => {
                     Confirmar Contraseña
                   </h1>
                   <input
-                    id='password'
+                    id='confirmPassword'
                     onChange={handleChange}
                     className='h-[50px] w-full rounded-md border-2 border-fourtiary  px-2'
                     type='password'
                     placeholder='Introducir una contraseña'
-                    value={newUser.password}
+                    value={confirmPassword}
                   />
                 </React.Fragment>
               )}
               <button
                 type='submit'
+                disabled={
+                  !showPasswordField
+                    ? false
+                    : confirmPassword !== newUser.password ||
+                      !newUser.password ||
+                      !confirmPassword
+                }
                 className='h-[50px] w-[300px] rounded-md bg-primary text-white'
               >
                 {query.id ? 'Actualizar' : 'Registrar'}

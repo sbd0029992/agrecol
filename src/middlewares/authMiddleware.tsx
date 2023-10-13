@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { IronSessionProps } from 'interfaces/types';
+import { IronSessionProps } from 'interface/type';
 import { withIronSession } from 'next-iron-session';
 
 const ironSessionOptions: IronSessionProps = {
