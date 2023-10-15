@@ -8,7 +8,8 @@ import React, { useEffect, useState } from 'react';
 import { FaArrowDown, FaArrowUp } from 'react-icons/fa';
 import { toast } from 'react-toastify';
 
-function ItemProduct({ name, price, photos, _id }: ProductProps) {
+function ItemProduct({ name, price, photos, _id, weight, rack }: ProductProps) {
+  console.log('🚀 ~ file: ItemProduct.tsx:12 ~ ItemProduct ~ rack:', rack);
   const [peso, setPeso] = useState(0);
   const [totalPrice, setTotalPrice] = useState(0);
   const [dataUser, setDataUser] = useState<any>(null);
@@ -22,9 +23,12 @@ function ItemProduct({ name, price, photos, _id }: ProductProps) {
   }, []);
 
   const handleAdd = () => {
-    setPeso((prevPeso) => prevPeso + 0.5);
+    if (peso + 0.5 <= weight) {
+      setPeso((prevPeso) => prevPeso + 0.5);
+    } else {
+      toast.error('No puedes superar el peso disponible del producto');
+    }
   };
-
   const handleSubtract = () => {
     if (peso >= 0.5) {
       setPeso((prevPeso) => prevPeso - 0.5);
@@ -39,7 +43,7 @@ function ItemProduct({ name, price, photos, _id }: ProductProps) {
           product: _id,
           quantity: peso,
         });
-        toast.success('Producto agregado con éxito!');
+        toast.success('Producto agregado con éxito! \n Revisa tu carrito');
         setPeso(0);
       } catch (error) {
         toast.error(
@@ -63,13 +67,22 @@ function ItemProduct({ name, price, photos, _id }: ProductProps) {
         <div className='flex flex-col'>
           <h1 className='text-center text-2xl font-semibold'>{name}</h1>
           <div className='h-[300px] w-[170px] rounded-md bg-gray-300'>
-            <img
-              className='h-[300px] w-[170px] object-cover'
-              src={photos}
-              alt={photos}
-            />
+            {photos && photos.length > 0 ? (
+              <img
+                className='h-[300px] w-[170px] rounded-md object-cover'
+                src={photos}
+                alt={photos}
+              />
+            ) : (
+              <div className='flex h-[300px] w-[170px] flex-col items-center justify-center rounded-md bg-gray-400 '>
+                <h1 className='text-center text-lg font-bold'>
+                  Imagen no disponible
+                </h1>
+              </div>
+            )}
           </div>
           <h1 className='text-center text-xl'>{`1kg = ${price}bs`}</h1>
+          <h1 className='text-center text-xl'>{rack.name}</h1>
         </div>
         <div className='flex flex-col justify-center'>
           <div className='flex flex-col justify-center gap-4'>
@@ -96,10 +109,20 @@ function ItemProduct({ name, price, photos, _id }: ProductProps) {
                 disabled={true}
                 placeholder='0'
                 value={peso}
-                onChange={(e) => setPeso(parseFloat(e.target.value))}
+                onChange={(e) => {
+                  const inputWeight = parseFloat(e.target.value);
+                  if (inputWeight <= weight) {
+                    setPeso(inputWeight);
+                  } else {
+                    toast.error(
+                      'El peso ingresado excede el peso disponible del producto.'
+                    );
+                  }
+                }}
                 id='peso'
                 className='h-[50px] w-2/6 self-center rounded-lg border-2 border-solid border-fourtiary text-center text-xl'
               />
+              <h1 className='self-center'>KG</h1>
             </div>
             <h1 className='text-center text-xl'>{`Total: ${totalPrice}bs`}</h1>
           </div>

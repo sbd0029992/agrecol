@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { RackProps } from 'interface/type';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
@@ -8,7 +9,7 @@ const RegisterRack: React.FC = () => {
   const [newRack, setNewRack] = useState<RackProps>({
     name: '',
     description: '',
-    status: '',
+    status: 1,
   });
 
   const getRack = async () => {
@@ -88,6 +89,11 @@ const RegisterRack: React.FC = () => {
       await createRack();
     }
   };
+
+  const handleStatusChange = () => {
+    setNewRack({ ...newRack, status: newRack.status === 1 ? 0 : 1 });
+  };
+
   return (
     <div className='text m-auto flex h-full min-h-[90vh] w-full flex-col items-center justify-center px-10 py-4 sm:w-2/5  '>
       <form onSubmit={handleSubmit}>
@@ -115,6 +121,24 @@ const RegisterRack: React.FC = () => {
             className='h-[100px] w-full rounded-md border-2 border-fourtiary px-2  sm:h-2/6'
             placeholder='Descripción de estante'
           />
+          {query.id ? (
+            <div className='flex items-center justify-between'>
+              <label className='relative inline-flex cursor-pointer items-center'>
+                <input
+                  type='checkbox'
+                  className='peer sr-only'
+                  id='status'
+                  value={newRack.status}
+                  checked={newRack.status === 1}
+                  onChange={handleStatusChange}
+                />
+                <div className="peer h-6 w-11 rounded-full bg-gray-200 after:absolute after:top-[2px] after:left-[2px] after:h-5 after:w-5 after:rounded-full after:border after:border-gray-300 after:bg-white after:transition-all after:content-[''] peer-checked:bg-blue-600 peer-checked:after:translate-x-full peer-checked:after:border-white peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:border-gray-600 dark:bg-gray-700 dark:peer-focus:ring-blue-800"></div>
+                <span className='ml-3 text-sm font-medium text-gray-900'>
+                  {newRack.status === 1 ? 'Disponible' : 'No disponible'}
+                </span>
+              </label>
+            </div>
+          ) : null}
 
           <button
             type='submit'

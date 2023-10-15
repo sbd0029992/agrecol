@@ -36,7 +36,7 @@ const ListRack: React.FC = () => {
       {newProduct.map((product: ProductProps) => (
         <div
           key={product._id}
-          className='overflow-hidden rounded bg-gray-200 py-4 px-2 shadow-xl '
+          className='min-h-[300[px] w-[220px] overflow-hidden rounded bg-gray-200 py-4 px-2 shadow-xl '
         >
           {product.photos && product.photos.length > 0 ? (
             <img
@@ -49,14 +49,19 @@ const ListRack: React.FC = () => {
               <h1 className='text-lg font-bold'>Imagen no disponible</h1>
             </div>
           )}
-
-          <div className='px-6 py-4'>
+          <div className='flex flex-col items-center justify-center '>
             <div className='mb-2 text-xl font-bold'>{product.name}</div>
             <p className='text-base text-gray-700'>{product.description}</p>
           </div>
-          <div className='px-6 pt-4 pb-2'>
-            <span className='mr-2 inline-block rounded-full bg-gray-200 px-3 py-1 text-sm font-semibold text-gray-700'>
-              {product.status == '1' ? 'Disponible' : 'No Disponible'}
+          <div className='mt-2 mb-2 flex flex-row items-center justify-center '>
+            <span
+              className={` mr-2 inline-block rounded-full px-3 py-1 text-sm font-semibold ${
+                product.status === 1
+                  ? 'bg-primary text-white'
+                  : 'bg-red-400 text-white'
+              }`}
+            >
+              {product.status === 1 ? 'Disponible' : 'No Disponible'}
             </span>
           </div>
           <div className='mt-2 flex flex-row items-center justify-center'>

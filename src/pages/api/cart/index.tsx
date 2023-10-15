@@ -10,23 +10,44 @@ dbConnect();
 async function handler(req: any, res: any) {
   const { method, body } = req;
 
+  let statusFilter: number[] = [];
+  if (req.query.status) {
+    statusFilter = req.query.status.split(',').map(Number);
+  }
+
   switch (method) {
     case 'GET':
       try {
+        let query = {};
+        if (statusFilter.length > 0) {
+          query = { status: { $in: statusFilter } };
+        }
+
         const userId = req.query.userId;
-        const carts = await Cart.find({
-          user: userId,
-          status: { $in: [1, 2] },
-        })
-          .populate({
-            path: 'user',
-            model: User,
+        if (userId) {
+          const carts = await Cart.find({
+            user: userId,
+            ...(statusFilter.length > 0 && { status: { $in: statusFilter } }),
           })
-          .populate({ path: 'product', model: Product });
-        return res.status(200).json(carts);
+            .populate({
+              path: 'user',
+              model: User,
+            })
+            .populate({ path: 'product', model: Product });
+          return res.status(200).json(carts);
+        } else {
+          const allCarts = await Cart.find(query)
+            .populate({
+              path: 'user',
+              model: User,
+            })
+            .populate({ path: 'product', model: Product });
+          return res.status(200).json(allCarts);
+        }
       } catch (error: any) {
         return res.status(400).json({ error: error.message });
       }
+
     case 'POST':
       try {
         const newCart = new Cart(body);
@@ -55,7 +76,6 @@ async function handler(req: any, res: any) {
           item.status = body.newStatus;
           await item.save({ session });
 
-          // Resta la cantidad comprada del inventario del producto
           const product = await Product.findById(item.product._id, null, {
             session,
           });

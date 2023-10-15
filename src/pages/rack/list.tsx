@@ -42,13 +42,17 @@ const ListRack: React.FC = () => {
             >
               <h1 className='mb-2 text-xl font-bold'>{rack.name}</h1>
               <p className='text-gray-700'>{rack.description}</p>
-              <p
-                className={`text-sm ${
-                  rack.status === 'active' ? 'text-green-500' : 'text-red-500'
-                }`}
-              >
-                {rack.status}
-              </p>
+              <div className='mt-2 mb-2 flex flex-row items-center justify-center '>
+                <span
+                  className={` mr-2 inline-block rounded-full px-3 py-1 text-sm font-semibold ${
+                    rack.status === 1
+                      ? 'bg-primary text-white'
+                      : 'bg-red-400 text-white'
+                  }`}
+                >
+                  {rack.status === 1 ? 'Disponible' : 'No Disponible'}
+                </span>
+              </div>
               <Link
                 className='mt-4 inline-block rounded bg-yellow-500 p-2 text-white hover:bg-yellow-700'
                 href={`/rack/${rack._id}/edit`}

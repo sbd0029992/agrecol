@@ -7,10 +7,20 @@ dbConnect();
 async function handler(req: any, res: any) {
   const { method, body } = req;
 
+  let statusFilter: number[] = [];
+  if (req.query.status) {
+    statusFilter = req.query.status.split(',').map(Number);
+  }
+
   switch (method) {
     case 'GET':
       try {
-        const allRacks = await Rack.find({});
+        let query = {};
+        if (statusFilter.length > 0) {
+          query = { status: { $in: statusFilter } };
+        }
+
+        const allRacks = await Rack.find(query);
         return res.status(200).json(allRacks);
       } catch (error: any) {
         return res.status(400).json({ error: error.message });

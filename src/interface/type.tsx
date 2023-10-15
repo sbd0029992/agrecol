@@ -58,9 +58,9 @@ export interface ProductProps {
   description?: string;
   rack?: any;
   receptionDate?: string;
-  weight?: string;
+  weight?: number | any;
   price?: number | any;
-  status?: string;
+  status?: number;
   photos?: string[] | any;
 }
 
@@ -68,7 +68,7 @@ export interface RackProps {
   _id?: string;
   name: string;
   description: string;
-  status?: string;
+  status?: number;
 }
 
 export type ResponseType<T> = {
@@ -95,4 +95,6 @@ export interface CardProps {
   product: ProductProps;
   quantity: number;
   status?: string;
+  createdAt?: string | any;
+  updatedAt?: string | any;
 }

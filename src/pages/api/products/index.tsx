@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import Product from 'models/Product';
+import Rack from 'models/Rack';
 import { dbConnect } from 'utils/mongosee';
 
 dbConnect();
@@ -7,10 +8,23 @@ dbConnect();
 async function handler(req: any, res: any) {
   const { method, body } = req;
 
+  let statusFilter: number[] = [];
+  if (req.query.status) {
+    statusFilter = req.query.status.split(',').map(Number);
+  }
+
   switch (method) {
     case 'GET':
       try {
-        const allProducts = await Product.find({});
+        let query = {};
+        if (statusFilter.length > 0) {
+          query = { status: { $in: statusFilter } };
+        }
+
+        const allProducts = await Product.find(query).populate({
+          path: 'rack',
+          model: Rack,
+        });
         return res.status(200).json(allProducts);
       } catch (error: any) {
         return res.status(400).json({ error: error.message });

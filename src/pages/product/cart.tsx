@@ -1,13 +1,21 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @next/next/no-img-element */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import axios from 'axios';
 import { CardProps } from 'interface/type';
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
+
+type ConfirmModalProps = {
+  total: number;
+  onConfirm: () => void;
+  onCancel: () => void;
+};
 
 function Cart() {
   const [cartItems, setCartItems] = useState<CardProps[]>([]);
   const [dataUser, setDataUser] = useState<any>(null);
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
 
   useEffect(() => {
     const getUser = async () => {
@@ -23,6 +31,7 @@ function Cart() {
         const { data } = await axios.get('/api/cart', {
           params: {
             userId: dataUser.idUser,
+            status: 1,
           },
         });
         setCartItems(data);
@@ -47,6 +56,11 @@ function Cart() {
   }
 
   async function handleConfirm() {
+    if (!dataUser || !dataUser.idUser) {
+      console.error('User data is not available');
+      return;
+    }
+
     try {
       const response = await axios.put('/api/cart', {
         userId: dataUser.idUser,
@@ -54,13 +68,51 @@ function Cart() {
       });
 
       if (response.status === 200) {
+        toast.success('Compra confirmada');
         getCartItems();
+      } else {
+        toast.error('Error al confirmar la compra');
       }
     } catch (error: any) {
-      alert(error.response.data.error);
+      toast.error(error.response.data.error);
       console.error(error);
     }
   }
+
+  function ConfirmModal({ total, onConfirm, onCancel }: ConfirmModalProps) {
+    return (
+      <div className='fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60'>
+        <div className='w-[80%] max-w-[600px] transform rounded bg-white p-8 shadow-lg transition-transform duration-500 ease-in-out md:w-[60%] lg:w-[40%] xl:w-[30%]'>
+          <h2 className='mb-4 text-2xl font-bold'>Confirmar compra</h2>
+          <p className='mb-4 text-xl'>Total a pagar: {total} Bs.</p>
+          <div className='mt-4 flex justify-between'>
+            <button
+              onClick={onConfirm}
+              className='mr-2 rounded-md bg-secondary py-2 px-4 text-lg text-white hover:bg-opacity-90'
+            >
+              Confirmar
+            </button>
+            <button
+              onClick={onCancel}
+              className='rounded-md bg-gray-300 py-2 px-4 text-lg text-black hover:bg-opacity-80'
+            >
+              Cancelar
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  function handleRealConfirm() {
+    handleConfirm();
+    setShowConfirmModal(false);
+  }
+
+  const total = cartItems.reduce(
+    (acc, item) => acc + item.product.price * item.quantity,
+    0
+  );
 
   return (
     <div>
@@ -77,10 +129,12 @@ function Cart() {
           <table className='m-auto w-2/3 border-collapse rounded bg-white px-4 pt-4 pb-8 shadow-md'>
             <thead>
               <tr>
-                <th className='w-[220px] border py-4'></th>
+                <th className='w-[220px] border py-4'>
+                  <h1 className='text-lg font-bold'>Total a pagar: {total}</h1>
+                </th>
                 <th className='border py-4 pl-4 text-center'>Producto</th>
-                <th className='border py-4 text-center'>Cantidad</th>
-                <th className='border  py-4 text-center'>Puntos</th>
+                <th className='border py-4 text-center'>Peso (Kg)</th>
+                <th className='border  py-4 text-center'>Precio Bs.</th>
               </tr>
             </thead>
             <tbody>
@@ -89,13 +143,19 @@ function Cart() {
                   <td className='border-t border-r py-4'>
                     {' '}
                     <div className='flex flex-col place-content-center items-center'>
-                      <img
-                        width={150}
-                        height={150}
-                        src={item.product.photos[0]}
-                        alt='Product Image'
-                        className='rounded-md shadow-sm'
-                      />
+                      {item.product.photos && item.product.photos.length > 0 ? (
+                        <img
+                          className='h-[200px] w-[200px] rounded-md object-cover'
+                          src={item.product.photos[0]}
+                          alt={item.product.name}
+                        />
+                      ) : (
+                        <div className='flex h-[200px] w-[200px] flex-col items-center justify-center rounded-md bg-gray-300 '>
+                          <h1 className='text-lg font-bold'>
+                            Imagen no disponible
+                          </h1>
+                        </div>
+                      )}
                       <button
                         className='mt-2 rounded-md bg-red-400 py-2 px-4 text-white'
                         onClick={() => handleRemove(item._id)}
@@ -112,23 +172,29 @@ function Cart() {
                     {item.quantity}
                   </td>
                   <td className='border-t border-r py-4 text-center'>
-                    {item.product.price}
+                    {item.product.price * item.quantity}
                   </td>
                 </tr>
               ))}
             </tbody>
           </table>
-
           <div className='mt-4 flex justify-center'>
             <button
               className='rounded-md bg-secondary py-2 px-4 text-white'
-              onClick={handleConfirm}
+              onClick={() => setShowConfirmModal(true)}
             >
               Confirmar
             </button>
           </div>
         </React.Fragment>
       ) : null}
+      {showConfirmModal && (
+        <ConfirmModal
+          total={total}
+          onConfirm={handleRealConfirm}
+          onCancel={() => setShowConfirmModal(false)}
+        />
+      )}
     </div>
   );
 }

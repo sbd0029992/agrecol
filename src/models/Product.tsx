@@ -39,8 +39,8 @@ const ProductSchema = new Schema(
       required: false,
     },
     status: {
-      type: String,
-      default: '1',
+      type: Number,
+      default: 1,
     },
   },
   {

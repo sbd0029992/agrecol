@@ -7,8 +7,6 @@ import React, { useEffect, useState } from 'react';
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [dataUser, setDataUser] = useState<any>(null);
-  console.log('🚀 ~ file: Navbar.tsx:10 ~ Navbar ~ dataUser:', dataUser);
-
   useEffect(() => {
     const getUser = async () => {
       const { data } = await axios.get('/api/auth/user');

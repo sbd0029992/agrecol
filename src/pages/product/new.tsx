@@ -22,12 +22,11 @@ function RegisterProduct() {
     receptionDate: '',
     weight: '',
     price: 0,
-    status: '1',
+    status: 1,
     photos: query.id ? [] : [],
   });
-
   async function fetchTrucks() {
-    const response = await fetch(`/api/racks`);
+    const response = await fetch(`/api/racks?status=1`);
     const data = await response.json();
     setRacks(data);
   }
@@ -214,6 +213,10 @@ function RegisterProduct() {
     }
   }
 
+  const handleStatusChange = () => {
+    setNewProduct({ ...newProduct, status: newProduct.status === 1 ? 0 : 1 });
+  };
+
   return (
     <div className='m-auto flex h-full min-h-[90vh] w-1/2 flex-col py-2'>
       <div className='w-full self-center px-10 '>
@@ -290,6 +293,25 @@ function RegisterProduct() {
                 className='h-[50px] w-full rounded-md border-2 border-fourtiary  px-2'
                 type='number'
               />
+
+              {query.id ? (
+                <div className='flex items-center justify-between'>
+                  <label className='relative inline-flex cursor-pointer items-center'>
+                    <input
+                      type='checkbox'
+                      className='peer sr-only'
+                      id='status'
+                      value={newProduct.status}
+                      checked={newProduct.status === 1}
+                      onChange={handleStatusChange}
+                    />
+                    <div className="peer h-6 w-11 rounded-full bg-gray-200 after:absolute after:top-[2px] after:left-[2px] after:h-5 after:w-5 after:rounded-full after:border after:border-gray-300 after:bg-white after:transition-all after:content-[''] peer-checked:bg-blue-600 peer-checked:after:translate-x-full peer-checked:after:border-white peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:border-gray-600 dark:bg-gray-700 dark:peer-focus:ring-blue-800"></div>
+                    <span className='ml-3 text-sm font-medium text-gray-900'>
+                      {newProduct.status === 1 ? 'Disponible' : 'No disponible'}
+                    </span>
+                  </label>
+                </div>
+              ) : null}
               {query.id ? (
                 <div>
                   <label className='mb-2 mt-2 block text-sm font-medium text-gray-500 dark:text-white'>
@@ -362,6 +384,7 @@ function RegisterProduct() {
                   ) : null}
                 </div>
               ) : null}
+
               <div className='flex justify-center'>
                 <button
                   type='submit'

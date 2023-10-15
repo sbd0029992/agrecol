@@ -20,7 +20,7 @@ function List() {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const res = await fetch(`/api/products`);
+        const res = await fetch(`/api/products?status=1`);
         const products = await res.json();
         setNewProduct(products);
       } catch (error) {
@@ -31,7 +31,7 @@ function List() {
   }, []);
 
   return (
-    <div className='flex h-full min-h-screen flex-row'>
+    <div className='flex h-full min-h-[90vh] flex-row'>
       <div className='w-full px-10 py-4'>
         <div className='flex items-center self-center'>
           <input
@@ -46,8 +46,10 @@ function List() {
             <ItemProduct
               _id={product._id}
               key={index}
+              rack={product.rack}
               name={product.name}
               price={product.price}
+              weight={product.weight}
               photos={
                 product.photos && product.photos.length > 0
                   ? product.photos[0]
