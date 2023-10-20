@@ -1,9 +1,14 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import Chart from 'chart.js';
 import React, { useEffect, useRef, useState } from 'react';
 
-import { LineChartProps } from '../interface/type';
+type LineChartProps = {
+  weeklyData: (number | null)[];
+  monthlyData: number[];
+  monthlyLabels?: string[];
+  level?: any;
+};
 
 const LineChart: React.FC<LineChartProps> = ({
   weeklyData,
@@ -22,20 +27,35 @@ const LineChart: React.FC<LineChartProps> = ({
     'Noviembre',
     'Diciembre',
   ],
+  level,
 }) => {
   const [chart, setChart] = useState<Chart | null>(null);
   const [timeFrame, setTimeFrame] = useState('Weekly');
-  const [sliderValue, setSliderValue] = useState(0);
   const chartRef = useRef<HTMLCanvasElement>(null);
 
+  const maxData: any = [],
+    minData: any = [];
+
+  for (let i = 0; i < weeklyData.length; i += 2) {
+    maxData.push(
+      level && weeklyData[i] !== null ? level - weeklyData[i] : weeklyData[i]
+    );
+    minData.push(
+      level && weeklyData[i + 1] !== null
+        ? level - weeklyData[i + 1]
+        : weeklyData[i + 1]
+    );
+  }
+  const maxValue = Math.max(...maxData, ...minData);
+
   useEffect(() => {
-    let data, labels;
+    let labels: any = [];
+
+    let maxTimeLineData = [],
+      minTimeLineData = [];
 
     if (timeFrame === 'Weekly') {
       const today = new Date();
-      const endIndex = weeklyData.length - 1;
-      const startIndex = Math.max(endIndex - 6, 0);
-
       labels = Array.from({ length: 7 }, (_, i) =>
         new Date(
           today.getFullYear(),
@@ -43,20 +63,18 @@ const LineChart: React.FC<LineChartProps> = ({
           today.getDate() - (6 - i)
         ).toLocaleDateString('es-ES', { day: '2-digit', month: 'short' })
       );
+      maxTimeLineData = maxData.slice(0, 7);
+      minTimeLineData = minData.slice(0, 7);
+    } else if (timeFrame === 'Monthly') {
+      labels = monthlyLabels;
 
-      data = Array.from(
-        { length: 7 },
-        (_, i) => weeklyData[startIndex + i] ?? 0
-      );
-    } else {
-      data = monthlyData.slice(sliderValue, sliderValue + 6);
-      labels = monthlyLabels.slice(sliderValue, sliderValue + 6);
+      for (let i = 0; i < monthlyData.length; i += 2) {
+        maxTimeLineData.push(monthlyData[i] !== null ? monthlyData[i] : 0);
+        minTimeLineData.push(
+          monthlyData[i + 1] !== null ? monthlyData[i + 1] : 0
+        );
+      }
     }
-
-    const maxValue = Math.max(...data);
-    const pointColor = data.map((value) =>
-      value === maxValue ? '#FF0000' : '#04BFDA'
-    );
 
     const config = {
       type: 'line',
@@ -64,12 +82,20 @@ const LineChart: React.FC<LineChartProps> = ({
         labels,
         datasets: [
           {
-            label: 'Ventas',
-            borderColor: '#FFF',
-            pointBackgroundColor: pointColor,
-            data,
+            label: 'Altura Maxima',
+            borderColor: '#33FF57',
             fill: false,
             pointRadius: 6,
+            pointBackgroundColor: '#33FF57',
+            data: minTimeLineData,
+          },
+          {
+            label: 'Altura Minima',
+            borderColor: '#FF5733',
+            fill: false,
+            pointRadius: 6,
+            pointBackgroundColor: '#FF5733',
+            data: maxTimeLineData,
           },
         ],
       },
@@ -77,20 +103,33 @@ const LineChart: React.FC<LineChartProps> = ({
         maintainAspectRatio: false,
         responsive: true,
         title: { display: false },
+        tooltips: {
+          enabled: false,
+          mode: 'index',
+          intersect: false,
+          titleFontColor: '#FFFFFF',
+          bodyFontColor: '#FFFFFF',
+        },
+        legend: {
+          labels: { fontColor: '#FFFFFF' },
+        },
+        scales: {
+          xAxes: [
+            {
+              ticks: {
+                fontColor: '#FFFFFF',
+              },
+              gridLines: { color: '#8c8c8c' },
+            },
+          ],
+          yAxes: [
+            {
+              ticks: { fontColor: '#FFFFFF' },
+              gridLines: { color: '#8c8c8c' },
+            },
+          ],
+        },
         plugins: {
-          title: { display: true },
-          tooltips: {
-            mode: 'index',
-            intersect: false,
-            titleFontColor: '#FFFFFF',
-            bodyFontColor: '#FFFFFF',
-          },
-          hover: { mode: 'nearest', intersect: true },
-          legend: {
-            labels: { fontColor: '#FFFFFF' },
-            align: 'end',
-            position: 'bottom',
-          },
           annotation: {
             annotations: [
               {
@@ -107,29 +146,6 @@ const LineChart: React.FC<LineChartProps> = ({
             ],
           },
         },
-        scales: {
-          xAxes: [
-            {
-              display: true,
-              gridLines: { display: false },
-              scaleLabel: { display: false },
-              ticks: {
-                fontColor: '#FFFFFF',
-                autoSkip: false,
-                maxRotation: 0,
-                minRotation: 0,
-              },
-            },
-          ],
-          yAxes: [
-            {
-              display: true,
-              scaleLabel: { display: false },
-              gridLines: { display: false },
-              ticks: { fontColor: '#FFFFFF' },
-            },
-          ],
-        },
       },
     };
 
@@ -142,46 +158,25 @@ const LineChart: React.FC<LineChartProps> = ({
         console.error('El contexto del canvas es null');
       }
     }
-  }, [weeklyData, monthlyData, sliderValue, timeFrame]);
-
-  useEffect(() => {
-    setSliderValue(0);
-  }, [timeFrame]);
+  }, [weeklyData, monthlyData, timeFrame]);
 
   return (
-    <div className=''>
-      <div className='flex justify-around rounded-t bg-transparent px-4 py-3'>
-        <h2 className='self-center text-base'>
-          {timeFrame === 'Weekly' ? 'Dias más Ventas' : 'Mes más Ventas'}
-        </h2>
-        <div>
-          <select
-            onChange={(e) => setTimeFrame(e.target.value)}
-            className='mr-2 rounded bg-white text-black'
-          >
-            <option value='Weekly'>Semanal</option>
-            <option value='Monthly'>Mensual</option>
-          </select>
-          {timeFrame === 'Monthly' && (
-            <input
-              type='range'
-              min='0'
-              max='6'
-              value={sliderValue}
-              onChange={(e) => setSliderValue(parseInt(e.target.value))}
-              className='...'
-            />
-          )}
+    <div className='w-[300px] bg-gray-500'>
+      <div className='relative mb-6 flex w-full min-w-0 flex-col break-words rounded shadow-lg'>
+        <div className='mb-0 flex justify-between rounded-t bg-transparent px-4 py-3'>
+          <h2 className='text-xl font-semibold text-white'>Mínimo y máximo</h2>
+          <div>
+            <select
+              onChange={(e) => setTimeFrame(e.target.value)}
+              className='mr-2 rounded bg-white text-black'
+            >
+              <option value='Weekly'>Semanal</option>
+              <option value='Monthly'>Mensual</option>
+            </select>
+          </div>
         </div>
-      </div>
-      <div className='flex-auto bg-slate-500'>
-        <div>
-          <canvas
-            className='h-[300px] '
-            width={300}
-            height={300}
-            ref={chartRef}
-          ></canvas>
+        <div className='flex-auto'>
+          <canvas width={300} height={300} ref={chartRef}></canvas>
         </div>
       </div>
     </div>

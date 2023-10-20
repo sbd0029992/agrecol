@@ -4,7 +4,7 @@ import axios from 'axios';
 import { CardProps } from 'interface/type';
 import React, { useEffect, useState } from 'react';
 
-function List() {
+function ListCardComplete() {
   const [cartItems, setCartItems] = useState<CardProps[]>([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [filteredProducts, setFilteredProducts] = useState(cartItems);
@@ -79,11 +79,11 @@ function List() {
       <table className='m-auto w-full table-auto border-collapse border-2 border-gray-200 md:w-2/3'>
         <thead>
           <tr>
-            <th className='w-[250px] border text-center'>Producto</th>
+            <th className='w-[150px] border text-center'>Producto</th>
             <th className='w-24 border text-center'>Kg. Comprados</th>
             <th className='w-20 border text-center'>Total Bs.</th>
-            <th className='w-[200px] border text-center'>Cajero</th>
-            <th className='w-[200px] border text-center'>Fecha</th>
+            <th className='w-[100px] border text-center'>Cajero</th>
+            <th className='w-[70px] border text-center'>Fecha</th>
           </tr>
         </thead>
         <tbody>
@@ -93,7 +93,7 @@ function List() {
                 {product.product.photos && product.product.photos.length > 0 ? (
                   <div>
                     <img
-                      className='h-[200px] w-[200px] rounded-md object-cover'
+                      className='h-[200px] w-[150px] rounded-md object-cover'
                       src={product.product.photos[0]}
                       alt={product.product.name}
                     />
@@ -102,7 +102,7 @@ function List() {
                     </h1>
                   </div>
                 ) : (
-                  <div className='flex h-[200px] w-[200px] flex-col items-center justify-center rounded-md bg-gray-300 '>
+                  <div className='flex h-[200px] w-[150px] flex-col items-center justify-center rounded-md bg-gray-300 '>
                     <h1 className='text-lg font-bold'>Imagen no disponible</h1>
                   </div>
                 )}
@@ -125,4 +125,4 @@ function List() {
   );
 }
 
-export default List;
+export default ListCardComplete;
