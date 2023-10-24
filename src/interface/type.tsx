@@ -14,7 +14,7 @@ export interface PieChartSoldProps {
   title: string;
 }
 
-export interface DonusChartProps {
+export interface DonutChartProps {
   labels: string[];
   data: number[];
 }

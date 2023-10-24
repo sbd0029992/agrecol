@@ -3,39 +3,44 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 
 export const useYearlyConsumptionData = () => {
-  const [resultArray, setResultArray] = useState<(any | any)[]>([]);
+  const [resultArray, setResultArray] = useState<number[]>(
+    new Array(12).fill(0)
+  );
 
   useEffect(() => {
     const fetchData = async () => {
       const today = new Date();
-      const startDate = new Date(today.getFullYear(), 0, 1);
+      const startYear = new Date(today.getFullYear(), 0, 1); // Primer día del año actual
 
-      const response = await axios.get(`/api/tanks`, {
+      const response = await axios.get(`/api/cart`, {
         params: {
-          startDate: startDate.toISOString(),
+          startDate: startYear.toISOString(),
           endDate: today.toISOString(),
         },
       });
 
       const yearData = response.data;
-      const monthData: { [key: number]: number[] } = {};
+      const monthCount: { [key: number]: number } = {};
 
       yearData.forEach((data: any) => {
         const dataTime = new Date(data.createdAt);
         const month = dataTime.getMonth();
-        if (!monthData[month]) monthData[month] = [];
-        monthData[month].push(data.value);
+        const value = data.quantity;
+
+        if (!monthCount[month]) {
+          monthCount[month] = value;
+        } else {
+          monthCount[month] += value;
+        }
       });
 
-      const resultArray: (number | null)[] = [];
+      const resultArray: number[] = new Array(12).fill(0);
+
       for (let i = 0; i < 12; i++) {
-        if (monthData[i]) {
-          resultArray.push(
-            Math.max(...monthData[i]),
-            Math.min(...monthData[i])
-          );
+        if (monthCount[i] !== undefined) {
+          resultArray[i] = monthCount[i];
         } else {
-          resultArray.push(null, null);
+          resultArray[i] = 0;
         }
       }
 

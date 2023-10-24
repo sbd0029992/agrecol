@@ -3,8 +3,9 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 
 export const useWeeklyConsumptionData = () => {
-  // Cambio en la declaración del estado
-  const [resultArray, setResultArray] = useState<(number | null)[]>([]);
+  const [resultArray, setResultArray] = useState<number[]>(
+    new Array(7).fill(0)
+  );
 
   useEffect(() => {
     const fetchData = async () => {
@@ -20,31 +21,30 @@ export const useWeeklyConsumptionData = () => {
       });
 
       const weekData = response.data;
-      const dayData: { [key: number]: { max: number; min: number } } = {};
+      const dayCount: { [key: number]: number } = {};
 
       weekData.forEach((data: any) => {
         const dataTime = new Date(data.createdAt);
         const day = dataTime.getDay();
         const value = data.quantity;
 
-        if (!dayData[day]) {
-          dayData[day] = { max: value, min: value };
+        if (!dayCount[day]) {
+          dayCount[day] = value;
         } else {
-          dayData[day].max = Math.max(dayData[day].max, value);
-          dayData[day].min = Math.min(dayData[day].min, value);
+          dayCount[day] += value;
         }
       });
 
-      const resultArray: (number | null)[] = [];
+      const resultArray: number[] = new Array(7).fill(0);
       const todayDay = today.getDay();
 
-      for (let i = 6; i >= 0; i--) {
+      for (let i = 0; i < 7; i++) {
         const dayIndex = (todayDay - i + 7) % 7;
 
-        if (dayData[dayIndex]) {
-          resultArray.push(dayData[dayIndex].max, dayData[dayIndex].min);
+        if (dayCount[dayIndex]) {
+          resultArray[dayIndex] = dayCount[dayIndex];
         } else {
-          resultArray.push(null, null);
+          resultArray[dayIndex] = 0;
         }
       }
 

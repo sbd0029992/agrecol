@@ -1,8 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { DonusChartProps } from 'interface/type';
+import { DonutChartProps } from 'interface/type';
 import React, { useEffect, useRef } from 'react';
 
-export default function DonusChart({ labels, data }: DonusChartProps) {
+export default function DonutChart({ labels, data }: DonutChartProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   const colors = Array(data.length)
