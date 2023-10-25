@@ -33,7 +33,7 @@ const UserSchema = new Schema(
     phone: {
       type: String,
       trim: true,
-      maxlength: [20, 'Plate cannot be more than 20 characters'],
+      maxlength: [8, 'Plate cannot be more than 20 characters'],
       unique: true,
     },
     password: {

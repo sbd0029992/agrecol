@@ -5,7 +5,13 @@ import LoadingSpinner from 'components/LoadingSpinner';
 import { ProductProps, RackProps } from 'interface/type';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
+import Modal from 'react-modal';
 import { toast } from 'react-toastify';
+
+const today = new Date();
+const localDate = new Date(today.getTime() - today.getTimezoneOffset() * 60000)
+  .toISOString()
+  .split('T')[0];
 
 function RegisterProduct() {
   const { query, push } = useRouter();
@@ -15,13 +21,16 @@ function RegisterProduct() {
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const [idProduct, setIdProduct] = useState<{ id: string }>({ id: '' });
   const [productImages, setProductImages] = useState<string[]>([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [toastShown, setToastShown] = useState<boolean>(false);
+
   const [newProduct, setNewProduct] = useState<ProductProps>({
     name: '',
     description: '',
     rack: '',
-    receptionDate: '',
-    weight: '',
-    price: 0,
+    receptionDate: localDate,
+    weight: 0,
+    price: 1,
     status: 1,
     photos: query.id ? [] : [],
   });
@@ -34,6 +43,22 @@ function RegisterProduct() {
   useEffect(() => {
     fetchTrucks();
   }, []);
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleModalOptionYes = () => {
+    closeModal();
+    const newProductId = idProduct.id;
+    const editUrl = `/product/${newProductId}/edit`;
+    window.location.href = editUrl;
+  };
+
+  const handleModalOptionNo = () => {
+    closeModal();
+    push('/product/list');
+  };
 
   const getProduct = async () => {
     try {
@@ -87,9 +112,12 @@ function RegisterProduct() {
         body: JSON.stringify(newProduct),
       });
 
+      const data = await response.json();
+      setIdProduct({ id: data._id }); // Asume que tu API devuelve el ID del producto
+
       (response.status === 200 || response.status === 201) &&
         toast.success('Producto creado con éxito');
-      push('/product/list');
+      setIsModalOpen(true);
       return response.status;
     } catch (error) {
       console.log(error);
@@ -106,8 +134,11 @@ function RegisterProduct() {
         body: JSON.stringify(product),
       });
 
-      (response.status === 200 || response.status === 201) &&
+      if (!toastShown && (response.status === 200 || response.status === 201)) {
         toast.success('Producto actualizado con éxito');
+        setToastShown(true);
+      }
+
       push('/product/list');
       return response.status;
     } catch (error) {
@@ -115,7 +146,6 @@ function RegisterProduct() {
     }
   };
 
-  // Función para subir una imagen a S3 y devolver la URL
   async function uploadToS3(file: any, id: any) {
     const formData = new FormData();
     formData.append('file', file);
@@ -127,7 +157,7 @@ function RegisterProduct() {
         body: formData,
       });
       const data = await response.json();
-      return data.imageUrl; // Asume que tu API devuelve la URL de la imagen
+      return data.imageUrl;
     } catch (error: any) {
       console.error(error.message);
     }
@@ -234,6 +264,7 @@ function RegisterProduct() {
                 className='h-[50px] w-full rounded-md border-2 border-fourtiary  px-2'
                 type='text'
                 placeholder='Ingrese el nombre del producto'
+                maxLength={20}
               />
               <h1 className='self-start text-lg text-gray-400'>
                 Descripción del producto
@@ -244,6 +275,7 @@ function RegisterProduct() {
                 onChange={handleChange}
                 className='h-[100px] w-full rounded-md border-2 border-fourtiary  px-2'
                 placeholder='Breve descripción del producto'
+                maxLength={60}
               />
 
               <h1 className='self-start text-lg text-gray-400'>
@@ -272,6 +304,8 @@ function RegisterProduct() {
                 onChange={handleChange}
                 className='h-[50px] w-full rounded-md border-2 border-fourtiary  px-2'
                 type='date'
+                min='2000-01-01'
+                max={localDate}
               />
               <h1 className='self-start text-lg text-gray-400'>
                 Kilogramos Recepcionados
@@ -282,6 +316,9 @@ function RegisterProduct() {
                 onChange={handleChange}
                 className='h-[50px] w-full rounded-md border-2 border-fourtiary  px-2'
                 type='number'
+                min='0.5'
+                step='0.5'
+                max='10000'
               />
               <h1 className='self-start text-lg text-gray-400'>
                 Precio por Kilogramo (Bs.)
@@ -292,6 +329,9 @@ function RegisterProduct() {
                 onChange={handleChange}
                 className='h-[50px] w-full rounded-md border-2 border-fourtiary  px-2'
                 type='number'
+                min='1'
+                step='1'
+                max='1000'
               />
 
               {query.id ? (
@@ -406,6 +446,32 @@ function RegisterProduct() {
           </form>
         </div>
       </div>
+      <Modal
+        isOpen={isModalOpen}
+        onRequestClose={closeModal}
+        contentLabel='My dialog'
+        className='flex h-screen items-center justify-center'
+      >
+        <div className='w-1/3 rounded-lg bg-white p-6 shadow-lg'>
+          <h2 className='mb-4 text-2xl'>
+            ¿Deseas agregar una imagen al producto?
+          </h2>
+          <div className='flex justify-end space-x-4'>
+            <button
+              onClick={handleModalOptionYes}
+              className='rounded bg-blue-500 px-4 py-2 text-white'
+            >
+              Sí
+            </button>
+            <button
+              onClick={handleModalOptionNo}
+              className='rounded bg-gray-300 px-4 py-2 text-black'
+            >
+              No
+            </button>
+          </div>
+        </div>
+      </Modal>
     </div>
   );
 }

@@ -7,6 +7,11 @@ import React, { useEffect, useState } from 'react';
 import { FaArrowLeft } from 'react-icons/fa';
 import { toast } from 'react-toastify';
 
+const today = new Date();
+const localDate = new Date(today.getTime() - today.getTimezoneOffset() * 60000)
+  .toISOString()
+  .split('T')[0];
+
 const Register: React.FC = () => {
   const { query, push } = useRouter();
   const [showPasswordField, setShowPasswordField] = useState(true);
@@ -88,6 +93,20 @@ const Register: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    if (
+      !newUser.name ||
+      !newUser.email ||
+      !newUser.gender ||
+      !newUser.birthdate ||
+      !newUser.ci ||
+      !newUser.phone ||
+      !newUser.password
+    ) {
+      alert('Todos los campos son obligatorios');
+      return;
+    }
+
     if (query.id) {
       await updateUser();
       toast.success('Usuario actualizado con exito');
@@ -131,6 +150,7 @@ const Register: React.FC = () => {
                 type='text'
                 placeholder='Introducir su nombre completo'
                 value={newUser.name}
+                maxLength={60}
               />
               <h1 className='self-start text-lg text-gray-400'>Genero</h1>
               <select
@@ -151,6 +171,8 @@ const Register: React.FC = () => {
                 className='h-[50px] w-full rounded-md border-2 border-fourtiary  px-2'
                 type='date'
                 value={newUser.birthdate}
+                min='1900-01-01'
+                max={localDate}
               />
               <h1 className='self-start text-lg text-gray-400'>
                 Carnet de Identidad
@@ -162,6 +184,7 @@ const Register: React.FC = () => {
                 type='text'
                 placeholder='Introducir su carnet de identidad'
                 value={newUser.ci}
+                maxLength={20}
               />
               <h1 className='self-start text-lg text-gray-400'>
                 Teléfono Celular
@@ -170,9 +193,10 @@ const Register: React.FC = () => {
                 id='phone'
                 onChange={handleChange}
                 className='h-[50px] w-full rounded-md border-2 border-fourtiary  px-2'
-                type='text'
+                type='number'
                 placeholder='Introducir su numero de celular'
                 value={newUser.phone}
+                max={99999999}
               />
               <h1 className='self-start text-lg text-gray-400'>
                 Correo Electronico
@@ -184,6 +208,7 @@ const Register: React.FC = () => {
                 type='email'
                 placeholder='Introducir su correo electronico'
                 value={newUser.email}
+                maxLength={40}
               />
               {showPasswordField && (
                 <React.Fragment>
@@ -197,6 +222,7 @@ const Register: React.FC = () => {
                     type='password'
                     placeholder='Introducir una contraseña'
                     value={newUser.password}
+                    maxLength={60}
                   />
                   <h1 className='self-start text-lg text-gray-400'>
                     Confirmar Contraseña
@@ -208,6 +234,7 @@ const Register: React.FC = () => {
                     type='password'
                     placeholder='Introducir una contraseña'
                     value={confirmPassword}
+                    maxLength={60}
                   />
                 </React.Fragment>
               )}

@@ -2088,6 +2088,13 @@
   dependencies:
     "@types/react" "*"
 
+"@types/react-modal@^3.16.2":
+  "integrity" "sha512-4LIHFLP8EmQnps3QhUIPyfF87b1BGikQD/MHuYNdx/30gH1d4Q3OUtyqrh6GUfifNVMPWXOrlRekJDWzPzu1Gg=="
+  "resolved" "https://registry.npmjs.org/@types/react-modal/-/react-modal-3.16.2.tgz"
+  "version" "3.16.2"
+  dependencies:
+    "@types/react" "*"
+
 "@types/react@*", "@types/react@^18.2.21":
   "integrity" "sha512-neFKG/sBAwGxHgXiIxnbm3/AAVQ/cMRS93hvBpg8xYRbeQSPVABp9U2bRnPf0iI4+Ucdv3plSxKK+3CW2ENJxA=="
   "resolved" "https://registry.npmjs.org/@types/react/-/react-18.2.21.tgz"

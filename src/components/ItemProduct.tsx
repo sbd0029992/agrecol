@@ -9,7 +9,6 @@ import { FaArrowDown, FaArrowUp } from 'react-icons/fa';
 import { toast } from 'react-toastify';
 
 function ItemProduct({ name, price, photos, _id, weight, rack }: ProductProps) {
-  console.log('🚀 ~ file: ItemProduct.tsx:12 ~ ItemProduct ~ rack:', rack);
   const [peso, setPeso] = useState(0);
   const [totalPrice, setTotalPrice] = useState(0);
   const [dataUser, setDataUser] = useState<any>(null);
@@ -36,6 +35,10 @@ function ItemProduct({ name, price, photos, _id, weight, rack }: ProductProps) {
   };
 
   const handleAddToCart = async () => {
+    if (peso <= 0) {
+      toast.error('El peso debe ser al menos 0.5kg para agregar al carrito.');
+      return;
+    }
     if (dataUser && dataUser.isLoggedIn) {
       try {
         await axios.post('/api/cart', {

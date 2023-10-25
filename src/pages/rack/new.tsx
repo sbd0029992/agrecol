@@ -75,7 +75,9 @@ const RegisterRack: React.FC = () => {
   };
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+    >
   ) => {
     const { id, value } = e.target;
     setNewRack({ ...newRack, [id]: value });
@@ -83,6 +85,10 @@ const RegisterRack: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!newRack.name.trim() || !newRack.description.trim()) {
+      toast.error('Los campos de nombre y descripción no pueden estar vacíos');
+      return;
+    }
     if (query.id) {
       await updateUser();
     } else {
@@ -109,17 +115,18 @@ const RegisterRack: React.FC = () => {
             className='h-[50px] w-full rounded-md border-2 border-fourtiary  px-2 sm:h-2/6'
             type='text'
             placeholder='Introducir nombre de estante'
+            maxLength={20}
           />
           <h1 className='self-start text-lg text-gray-400'>
             Descripción Estante
           </h1>
-          <input
-            type='text'
+          <textarea
             id='description'
             onChange={handleChange}
             value={newRack.description}
-            className='h-[100px] w-full rounded-md border-2 border-fourtiary px-2  sm:h-2/6'
+            className='h-[100px] w-full flex-wrap rounded-md border-2 border-fourtiary px-2 '
             placeholder='Descripción de estante'
+            maxLength={60}
           />
           {query.id ? (
             <div className='flex items-center justify-between'>
