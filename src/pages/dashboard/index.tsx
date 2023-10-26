@@ -1,10 +1,12 @@
 import DonutChart from 'components/DonusGraphic';
 import LineChart from 'components/LineChart';
 import TopProductsTable from 'components/TopProductsTable';
+import withSession from 'lib/session';
 import { useCashierSalesData } from 'pages/hooks/dashboard/useCashierSalesData';
 import { useTopProductsSold } from 'pages/hooks/dashboard/useTopProductsSold';
 import { useWeeklyConsumptionData } from 'pages/hooks/dashboard/useWeeklyConsumptionData';
 import { useYearlyConsumptionData } from 'pages/hooks/dashboard/useYearlyConsumptionData';
+import { getUserProps } from 'pages/hooks/permision/getServerSidePropsUtil';
 
 const DashboardPage = () => {
   const dataForWeek = useWeeklyConsumptionData();
@@ -27,5 +29,7 @@ const DashboardPage = () => {
     </div>
   );
 };
+
+export const getServerSideProps = withSession(getUserProps);
 
 export default DashboardPage;

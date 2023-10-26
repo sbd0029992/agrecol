@@ -5,10 +5,8 @@ import userServiceFactory from 'clientServices/userService';
 import LoadingSpinner from 'components/LoadingSpinner';
 import { AuthContext } from 'context/authContext';
 import useUser from 'lib/useUser';
-import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useContext, useEffect, useState } from 'react';
-import { FaArrowLeft } from 'react-icons/fa';
 
 const userService = userServiceFactory();
 
@@ -78,13 +76,6 @@ function Login() {
         </div>
       </div>
       <div className='w-[50vw]  px-10 py-4 '>
-        <Link
-          href='/home'
-          className='flex flex-row items-center gap-2 self-center'
-        >
-          <FaArrowLeft className='text-lg text-gray-400' />
-          <p className='font-semibold text-gray-400'>Atrás</p>
-        </Link>
         <div className='m-auto flex h-[99%] w-3/4 flex-col items-center  justify-center'>
           <form onSubmit={handleSubmit}>
             <div className='flex w-full flex-col items-center justify-center gap-5 '>

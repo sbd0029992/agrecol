@@ -25,6 +25,7 @@ const Register: React.FC = () => {
     phone: '',
     password: '',
   });
+  console.log('🚀 ~ file: new.tsx:28 ~ newUser:', newUser);
 
   const getUser = async () => {
     try {
@@ -159,7 +160,9 @@ const Register: React.FC = () => {
                 className='h-[50px] w-full rounded-md border-2 border-fourtiary bg-white  px-2'
                 value={newUser.gender}
               >
-                <option value='M'>Masculino</option>
+                <option value='M' selected>
+                  Masculino
+                </option>
                 <option value='F'>Femenino</option>
               </select>
               <h1 className='self-start text-lg text-gray-400'>
@@ -196,7 +199,6 @@ const Register: React.FC = () => {
                 type='number'
                 placeholder='Introducir su numero de celular'
                 value={newUser.phone}
-                max={99999999}
               />
               <h1 className='self-start text-lg text-gray-400'>
                 Correo Electronico

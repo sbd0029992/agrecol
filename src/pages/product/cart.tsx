@@ -2,7 +2,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import axios from 'axios';
 import { CardProps } from 'interface/type';
+import withSession from 'lib/session';
 import Link from 'next/link';
+import { getUserProps } from 'pages/hooks/permision/getServerSidePropsUtil';
 import React, { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 
@@ -198,5 +200,7 @@ function Cart() {
     </div>
   );
 }
+
+export const getServerSideProps = withSession(getUserProps);
 
 export default Cart;
