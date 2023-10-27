@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { useServerSideLogin } from 'hooks/permission/useServerSideLogin';
 import withSession from 'lib/session';
 import Link from 'next/link';
-import { useServerSideLogin } from 'pages/hooks/permission/useServerSideLogin';
 import React from 'react';
 
 function Index() {

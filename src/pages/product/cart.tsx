@@ -1,10 +1,10 @@
 /* eslint-disable @next/next/no-img-element */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import axios from 'axios';
+import { useServerSideLogin } from 'hooks/permission/useServerSideLogin';
 import { CardProps } from 'interface/type';
 import withSession from 'lib/session';
 import Link from 'next/link';
-import { useServerSideLogin } from 'pages/hooks/permission/useServerSideLogin';
 import React, { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 

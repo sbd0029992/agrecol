@@ -1,9 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import axios from 'axios';
-import {
-  redirectToLogin,
-  redirectToUnauthorized,
-} from 'pages/constants/redirects';
+import { redirectToLogin, redirectToUnauthorized } from 'constants/redirects';
 
 export const useServerSideLogin = async (context: any) => {
   const { req } = context;

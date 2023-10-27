@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @next/next/no-img-element */
+import UseUserDataCookie from 'hooks/userCookieData/userData';
 import Link from 'next/link';
-import UseUserDataCookie from 'pages/hooks/userCookieData/userData';
 import React, { useState } from 'react';
 
 function Navbar() {

@@ -1,9 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import axios from 'axios';
-import {
-  redirectToLogin,
-  redirectToUnauthorized,
-} from 'pages/constants/redirects';
+import { redirectToLogin, redirectToUnauthorized } from 'constants/redirects';
 
 export const useServerSidePermission = async (context: any) => {
   const { req } = context;
@@ -22,7 +19,7 @@ export const useServerSidePermission = async (context: any) => {
 
     if (userData.isLoggedIn !== true) return redirectToLogin;
 
-    if (userData.role !== 'admin') return redirectToUnauthorized;
+    if (userData.type !== 'admin') return redirectToUnauthorized;
 
     return {
       props: {

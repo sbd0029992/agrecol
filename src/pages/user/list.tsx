@@ -1,8 +1,8 @@
 import axios from 'axios';
 import CardCashier from 'components/CardCashier';
+import { useServerSidePermission } from 'hooks/permission/useServerSidePermission';
 import { NewUserProps } from 'interface/type';
 import withSession from 'lib/session';
-import { useServerSidePermission } from 'pages/hooks/permission/useServerSidePermission';
 import React, { useEffect, useState } from 'react';
 
 function List() {

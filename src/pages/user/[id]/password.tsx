@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @next/next/no-img-element */
 /* eslint-disable react-hooks/exhaustive-deps */
+import { useServerSideLogin } from 'hooks/permission/useServerSideLogin';
 import { NewUserProps } from 'interface/type';
 import withSession from 'lib/session';
 import { useRouter } from 'next/router';
-import { useServerSideLogin } from 'pages/hooks/permission/useServerSideLogin';
 import React, { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 

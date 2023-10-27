@@ -1,12 +1,12 @@
 import DonutChart from 'components/DonusGraphic';
 import LineChart from 'components/LineChart';
 import TopProductsTable from 'components/TopProductsTable';
+import { useCashierSalesData } from 'hooks/dashboard/useCashierSalesData';
+import { useTopProductsSold } from 'hooks/dashboard/useTopProductsSold';
+import { useWeeklyConsumptionData } from 'hooks/dashboard/useWeeklyConsumptionData';
+import { useYearlyConsumptionData } from 'hooks/dashboard/useYearlyConsumptionData';
+import { useServerSidePermission } from 'hooks/permission/useServerSidePermission';
 import withSession from 'lib/session';
-import { useCashierSalesData } from 'pages/hooks/dashboard/useCashierSalesData';
-import { useTopProductsSold } from 'pages/hooks/dashboard/useTopProductsSold';
-import { useWeeklyConsumptionData } from 'pages/hooks/dashboard/useWeeklyConsumptionData';
-import { useYearlyConsumptionData } from 'pages/hooks/dashboard/useYearlyConsumptionData';
-import { useServerSidePermission } from 'pages/hooks/permission/useServerSidePermission';
 
 const DashboardPage = () => {
   const dataForWeek = useWeeklyConsumptionData();

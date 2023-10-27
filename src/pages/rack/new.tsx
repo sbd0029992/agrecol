@@ -1,8 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
+import { useServerSidePermission } from 'hooks/permission/useServerSidePermission';
 import { RackProps } from 'interface/type';
 import withSession from 'lib/session';
 import { useRouter } from 'next/router';
-import { useServerSidePermission } from 'pages/hooks/permission/useServerSidePermission';
 import React, { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 

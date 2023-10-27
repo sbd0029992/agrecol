@@ -1,6 +1,6 @@
+import { useServerSidePermission } from 'hooks/permission/useServerSidePermission';
 import { ProductProps, RackProps } from 'interface/type';
 import withSession from 'lib/session';
-import { useServerSidePermission } from 'pages/hooks/permission/useServerSidePermission';
 import React, { useEffect, useState } from 'react';
 
 import ItemProduct from '../../components/ItemProduct';

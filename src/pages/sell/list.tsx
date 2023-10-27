@@ -1,9 +1,9 @@
 /* eslint-disable @next/next/no-img-element */
 /* eslint-disable react-hooks/exhaustive-deps */
 import axios from 'axios';
+import { useServerSidePermission } from 'hooks/permission/useServerSidePermission';
 import { CardProps } from 'interface/type';
 import withSession from 'lib/session';
-import { useServerSidePermission } from 'pages/hooks/permission/useServerSidePermission';
 import React, { useEffect, useState } from 'react';
 
 function ListCardComplete() {
