@@ -3,7 +3,9 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import LoadingSpinner from 'components/LoadingSpinner';
 import { ProductProps, RackProps } from 'interface/type';
+import withSession from 'lib/session';
 import { useRouter } from 'next/router';
+import { useServerSideLogin } from 'pages/hooks/permission/useServerSideLogin';
 import React, { useEffect, useState } from 'react';
 import Modal from 'react-modal';
 import { toast } from 'react-toastify';
@@ -475,5 +477,7 @@ function RegisterProduct() {
     </div>
   );
 }
+
+export const getServerSideProps = withSession(useServerSideLogin);
 
 export default RegisterProduct;

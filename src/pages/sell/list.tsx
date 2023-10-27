@@ -2,6 +2,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import axios from 'axios';
 import { CardProps } from 'interface/type';
+import withSession from 'lib/session';
+import { useServerSidePermission } from 'pages/hooks/permission/useServerSidePermission';
 import React, { useEffect, useState } from 'react';
 
 function ListCardComplete() {
@@ -124,5 +126,7 @@ function ListCardComplete() {
     </div>
   );
 }
+
+export const getServerSideProps = withSession(useServerSidePermission);
 
 export default ListCardComplete;

@@ -1,6 +1,8 @@
 /* eslint-disable @next/next/no-img-element */
 import { ProductProps } from 'interface/type';
+import withSession from 'lib/session';
 import Link from 'next/link';
+import { useServerSideLogin } from 'pages/hooks/permission/useServerSideLogin';
 import React, { useEffect, useState } from 'react';
 
 const ListRack: React.FC = () => {
@@ -77,5 +79,7 @@ const ListRack: React.FC = () => {
     </div>
   );
 };
+
+export const getServerSideProps = withSession(useServerSideLogin);
 
 export default ListRack;

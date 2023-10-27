@@ -7,5 +7,6 @@
   },
   "headwind.runOnSave": false,
   "typescript.preferences.importModuleSpecifier": "non-relative",
-  "livePreview.defaultPreviewPath": "/public/asdf.html"
+  "livePreview.defaultPreviewPath": "/public/asdf.html",
+  "cSpell.words": ["Flowbite"]
 }

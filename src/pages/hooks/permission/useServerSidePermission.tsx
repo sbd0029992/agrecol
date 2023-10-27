@@ -1,22 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import axios from 'axios';
+import {
+  redirectToLogin,
+  redirectToUnauthorized,
+} from 'pages/constants/redirects';
 
-// Verifica que los redirects estén bien configurados
-export const redirectToLogin = {
-  redirect: {
-    destination: '/login',
-    permanent: false,
-  },
-};
-
-export const redirectToUnauthorized = {
-  redirect: {
-    destination: '/',
-    permanent: false,
-  },
-};
-
-export const getUserProps = async (context: any) => {
+export const useServerSidePermission = async (context: any) => {
   const { req } = context;
   const user = req.session.get('user');
   const cookie = context.req.headers.cookie;
@@ -33,13 +22,14 @@ export const getUserProps = async (context: any) => {
 
     if (userData.isLoggedIn !== true) return redirectToLogin;
 
+    if (userData.role !== 'admin') return redirectToUnauthorized;
+
     return {
       props: {
         user: userData,
       },
     };
   } catch (error) {
-    console.error('Error fetching user data:', error); // Log para el error
     return redirectToUnauthorized;
   }
 };

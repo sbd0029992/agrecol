@@ -2,7 +2,9 @@
 
 import CardProfile from 'components/CardProfile';
 import { NewUserProps } from 'interface/type';
+import withSession from 'lib/session';
 import { useRouter } from 'next/router';
+import { useServerSideLogin } from 'pages/hooks/permission/useServerSideLogin';
 import UseUserDataCookie from 'pages/hooks/userCookieData/userData';
 import React, { useEffect, useState } from 'react';
 
@@ -41,4 +43,5 @@ function Profile() {
   );
 }
 
+export const getServerSideProps = withSession(useServerSideLogin);
 export default Profile;

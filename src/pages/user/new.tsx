@@ -1,8 +1,10 @@
 /* eslint-disable @next/next/no-img-element */
 /* eslint-disable react-hooks/exhaustive-deps */
 import { NewUserProps } from 'interface/type';
+import withSession from 'lib/session';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { useServerSideLogin } from 'pages/hooks/permission/useServerSideLogin';
 import React, { useEffect, useState } from 'react';
 import { FaArrowLeft } from 'react-icons/fa';
 import { toast } from 'react-toastify';
@@ -25,8 +27,6 @@ const Register: React.FC = () => {
     phone: '',
     password: '',
   });
-  console.log('🚀 ~ file: new.tsx:28 ~ newUser:', newUser);
-
   const getUser = async () => {
     try {
       const res = await fetch(`/api/users/${query.id}`);
@@ -260,5 +260,7 @@ const Register: React.FC = () => {
     </div>
   );
 };
+
+export const getServerSideProps = withSession(useServerSideLogin);
 
 export default Register;

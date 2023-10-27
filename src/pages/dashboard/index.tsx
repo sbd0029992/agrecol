@@ -6,7 +6,7 @@ import { useCashierSalesData } from 'pages/hooks/dashboard/useCashierSalesData';
 import { useTopProductsSold } from 'pages/hooks/dashboard/useTopProductsSold';
 import { useWeeklyConsumptionData } from 'pages/hooks/dashboard/useWeeklyConsumptionData';
 import { useYearlyConsumptionData } from 'pages/hooks/dashboard/useYearlyConsumptionData';
-import { getUserProps } from 'pages/hooks/permision/getServerSidePropsUtil';
+import { useServerSidePermission } from 'pages/hooks/permission/useServerSidePermission';
 
 const DashboardPage = () => {
   const dataForWeek = useWeeklyConsumptionData();
@@ -30,6 +30,6 @@ const DashboardPage = () => {
   );
 };
 
-export const getServerSideProps = withSession(getUserProps);
+export const getServerSideProps = withSession(useServerSidePermission);
 
 export default DashboardPage;

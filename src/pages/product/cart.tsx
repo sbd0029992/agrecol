@@ -4,7 +4,7 @@ import axios from 'axios';
 import { CardProps } from 'interface/type';
 import withSession from 'lib/session';
 import Link from 'next/link';
-import { getUserProps } from 'pages/hooks/permision/getServerSidePropsUtil';
+import { useServerSideLogin } from 'pages/hooks/permission/useServerSideLogin';
 import React, { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 
@@ -201,6 +201,6 @@ function Cart() {
   );
 }
 
-export const getServerSideProps = withSession(getUserProps);
+export const getServerSideProps = withSession(useServerSideLogin);
 
 export default Cart;

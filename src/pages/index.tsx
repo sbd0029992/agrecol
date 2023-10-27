@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import withSession from 'lib/session';
 import Link from 'next/link';
-import { getUserProps } from 'pages/hooks/permision/getServerSidePropsUtil';
+import { useServerSideLogin } from 'pages/hooks/permission/useServerSideLogin';
 import React from 'react';
 
 function Index() {
@@ -23,6 +23,6 @@ function Index() {
   );
 }
 
-export const getServerSideProps = withSession(getUserProps);
+export const getServerSideProps = withSession(useServerSideLogin);
 
 export default Index;

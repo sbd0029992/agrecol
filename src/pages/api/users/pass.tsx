@@ -13,7 +13,9 @@ async function handler(req: any, res: any) {
       const { id, currentPassword, newPassword } = body;
 
       if (!id || !currentPassword || !newPassword) {
-        return res.status(400).json({ error: 'All fields must be provided' });
+        return res
+          .status(400)
+          .json({ error: 'Todos los campos deben ser llenados' });
       }
 
       try {
@@ -31,7 +33,7 @@ async function handler(req: any, res: any) {
         if (!isPasswordMatch) {
           return res
             .status(400)
-            .json({ error: 'Current password is incorrect' });
+            .json({ error: 'Contraseña actual es incorrecta' });
         }
 
         const saltRounds = 10;
@@ -45,7 +47,7 @@ async function handler(req: any, res: any) {
 
         return res
           .status(200)
-          .json({ message: 'Password updated successfully' });
+          .json({ message: 'Contraseña exitosamente cambiada' });
       } catch (error: any) {
         return res.status(500).json({ error: error.message });
       }
