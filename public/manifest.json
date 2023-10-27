@@ -1,7 +1,7 @@
 {
   "theme_color": "#8acba2",
   "background_color": "#008C4B",
-  "display": "standalone",
+  "display": "fullscreen",
   "scope": "/",
   "start_url": "/",
   "name": "Agrecol",

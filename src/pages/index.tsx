@@ -6,7 +6,7 @@ import React from 'react';
 
 function Index() {
   return (
-    <div className='flex h-full min-h-[90vh] flex-row'>
+    <div className='flex h-full flex-col md:h-full md:min-h-[90vh] md:flex-row '>
       <div className='background-registerProduct'>
         <Link href='/product/sell' className='flex flex-col gap-1 text-center '>
           <h1>LISTA</h1>
