@@ -2,10 +2,10 @@
 /* eslint-disable @next/next/no-img-element */
 /* eslint-disable react-hooks/exhaustive-deps */
 import { NewUserProps } from 'interface/type';
-import Link from 'next/link';
+import withSession from 'lib/session';
 import { useRouter } from 'next/router';
+import { useServerSideLogin } from 'pages/hooks/permission/useServerSideLogin';
 import React, { useEffect, useState } from 'react';
-import { FaArrowLeft } from 'react-icons/fa';
 import { toast } from 'react-toastify';
 
 const Register: React.FC = () => {
@@ -97,12 +97,6 @@ const Register: React.FC = () => {
         </div>
       </div>
       <div className='w-[50vw]  px-10 py-4  '>
-        <Link href='/'>
-          <p className='flex flex-row items-center gap-2 self-center'>
-            <FaArrowLeft className='text-lg text-gray-400' />
-            <p className='font-semibold text-gray-400'>Atrás</p>
-          </p>
-        </Link>
         <form onSubmit={handleSubmit} className='h-[95%]'>
           <div className='m-auto flex h-[99%] w-3/4 flex-col items-center  justify-center'>
             <div className='flex w-full flex-col items-center justify-center gap-5 '>
@@ -163,5 +157,7 @@ const Register: React.FC = () => {
     </div>
   );
 };
+
+export const getServerSideProps = withSession(useServerSideLogin);
 
 export default Register;

@@ -1,6 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { RackProps } from 'interface/type';
+import withSession from 'lib/session';
 import { useRouter } from 'next/router';
+import { useServerSidePermission } from 'pages/hooks/permission/useServerSidePermission';
 import React, { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 
@@ -158,4 +160,6 @@ const RegisterRack: React.FC = () => {
     </div>
   );
 };
+
+export const getServerSideProps = withSession(useServerSidePermission);
 export default RegisterRack;

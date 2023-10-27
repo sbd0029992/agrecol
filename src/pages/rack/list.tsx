@@ -1,5 +1,7 @@
 import { RackProps } from 'interface/type';
+import withSession from 'lib/session';
 import Link from 'next/link';
+import { useServerSidePermission } from 'pages/hooks/permission/useServerSidePermission';
 import React, { useEffect, useState } from 'react';
 
 const ListRack: React.FC = () => {
@@ -68,5 +70,7 @@ const ListRack: React.FC = () => {
     </div>
   );
 };
+
+export const getServerSideProps = withSession(useServerSidePermission);
 
 export default ListRack;

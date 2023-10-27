@@ -44,7 +44,7 @@ const UserSchema = new Schema(
       type: String,
       trim: true,
       maxlength: [20, 'Plate cannot be more than 20 characters'],
-      default: 'user',
+      default: 'cashier',
     },
     status: {
       type: String,

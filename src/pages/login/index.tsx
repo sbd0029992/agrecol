@@ -7,6 +7,7 @@ import { AuthContext } from 'context/authContext';
 import useUser from 'lib/useUser';
 import { useRouter } from 'next/router';
 import React, { useContext, useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
 
 const userService = userServiceFactory();
 
@@ -48,12 +49,18 @@ function Login() {
   };
   const handleSubmit = async (e: any) => {
     e.preventDefault();
+
+    if (!email || !password) {
+      toast.error('Por favor llene todos los campos');
+      return;
+    }
+
     setLoading(true);
     try {
       const response = await userService.login(email, password);
       mutateUser(response.data);
     } catch (error: any) {
-      alert(error.response.data.error);
+      toast.error('El usuario o la contraseña son incorrectos');
       setLoading(false);
     }
   };
@@ -105,8 +112,6 @@ function Login() {
               >
                 {loading ? <LoadingSpinner /> : 'Acceder'}
               </button>
-
-              <p>¿Olvidaste tu contraseña?</p>
             </div>
           </form>
         </div>

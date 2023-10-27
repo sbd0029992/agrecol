@@ -1,6 +1,8 @@
 import axios from 'axios';
 import CardCashier from 'components/CardCashier';
 import { NewUserProps } from 'interface/type';
+import withSession from 'lib/session';
+import { useServerSidePermission } from 'pages/hooks/permission/useServerSidePermission';
 import React, { useEffect, useState } from 'react';
 
 function List() {
@@ -33,5 +35,7 @@ function List() {
     </div>
   );
 }
+
+export const getServerSideProps = withSession(useServerSidePermission);
 
 export default List;
