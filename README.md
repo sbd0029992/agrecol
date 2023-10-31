@@ -18,7 +18,7 @@ npm install
 Crear un archivo .env en la raiz del proyecto que tenga los siguientes valores.
 
 ```bash
-MONGODB_URL = "mongodb+srv://admin:p1ZkUjpvjO6n7qck@agrecol.fpbswfd.mongodb.net/agrecol"
+MONGODB_URL = ""
 NODE_ENV= "development"
 SECRET_COOKIE_PASSWORD = "KTE2iWWSeoAA.PWEL4TyQ1rVcXiOZgPyiSsI1HuwcdCK"
 AWS_ACCESS_KEY_ID=""
