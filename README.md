@@ -4,6 +4,9 @@
 - ⚛️ React 18
 - 💨 Tailwind CSS 3
 - 💎 TypeScript
+- MongoDB
+- Docker
+- AWS S3
 
 ### 1. Instala las dependencias
 
@@ -15,7 +18,7 @@ npm install
 
 ### 2. Variables de Entorno
 
-Crear un archivo .env en la raiz del proyecto que tenga los siguientes valores.
+Crear un archivo .env en la raíz del proyecto que tenga los siguientes valores.
 
 ```bash
 MONGODB_URL = ""
@@ -29,9 +32,20 @@ AWS_DOMAIN=""
 NEXT_PUBLIC_API_URL="http://localhost:3000"
 ```
 
-### 2. Ejecuta el servidor de desarrollo
+### 3. Ejecuta el servidor con Docker
 
-Puedes iniciar el servidor en modo produccion usando este comando:
+Puedes iniciar el servidor en modo producción usando este comando:
+
+```bash
+docker-compose up -d --build
+
+```
+
+Abre [http://localhost:3000](http://localhost:3000) con tu navegador para ver el resultado.
+
+### 4. Ejecuta la aplicacion con Docker
+
+Puedes iniciar el servidor en modo producción usando este comando:
 
 ```bash
 npm run build
@@ -48,11 +62,15 @@ npm run dev
 
 Abre [http://localhost:3000](http://localhost:3000) con tu navegador para ver el resultado.
 
-### 3. Convención para los mensajes de commit
+### 5. Proyecto en producción
+
+Proyecto en producción [https://agrecol.vercel.app/](https://agrecol.vercel.app/)
+
+### 6. Convención para los mensajes de commit
 
 Este proyecto utiliza [convencional commits](https://www.conventionalcommits.org/en/v1.0.0/), es obligatorio utilizarlo para hacer commits.
 
-### 4. Arquitectura de carpetas
+### 7. Arquitectura de carpetas
 
 ```bash
 ├── public               # Activos estáticos
