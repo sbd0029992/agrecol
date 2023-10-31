@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import authMiddleware from 'middlewares/authMiddleware';
 import Product from 'models/Product';
 import Rack from 'models/Rack';
 import { dbConnect } from 'utils/mongosee';
@@ -44,4 +45,4 @@ async function handler(req: any, res: any) {
   }
 }
 
-export default handler;
+export default authMiddleware(handler);

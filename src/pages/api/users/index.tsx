@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import bcrypt from 'bcryptjs';
+import authMiddleware from 'middlewares/authMiddleware';
 import User from 'models/User';
 import { dbConnect } from 'utils/mongosee';
 
@@ -34,4 +35,4 @@ async function handler(req: any, res: any) {
   }
 }
 
-export default handler;
+export default authMiddleware(handler);

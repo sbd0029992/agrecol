@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable import/no-anonymous-default-export */
+import authMiddleware from 'middlewares/authMiddleware';
 import Rack from 'models/Rack';
 import { dbConnect } from 'utils/mongosee';
 
@@ -46,4 +47,4 @@ async function handler(req: any, res: any) {
   }
 }
 
-export default handler;
+export default authMiddleware(handler);

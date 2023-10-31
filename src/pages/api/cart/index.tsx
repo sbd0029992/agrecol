@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import authMiddleware from 'middlewares/authMiddleware';
 import Cart from 'models/Cart';
 import Product from 'models/Product';
 import User from 'models/User';
@@ -102,4 +103,4 @@ async function handler(req: any, res: any) {
   }
 }
 
-export default handler;
+export default authMiddleware(handler);

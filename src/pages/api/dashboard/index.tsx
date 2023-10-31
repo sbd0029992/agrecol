@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import authMiddleware from 'middlewares/authMiddleware';
 import Cart from 'models/Cart';
 import Product from 'models/Product';
 import User from 'models/User';
@@ -52,4 +53,4 @@ const handleRequest = async (
   }
 };
 
-export default handleRequest;
+export default authMiddleware(handleRequest);
