@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @next/next/no-img-element */
 import { useServerSidePermission } from 'hooks/permission/useServerSidePermission';
 import { NewUserProps } from 'interface/type';
@@ -18,7 +19,7 @@ const Register: React.FC = () => {
   const [newUser, setNewUser] = useState<NewUserProps>({
     name: '',
     email: '',
-    gender: '',
+    gender: 'M',
     birthdate: '',
     ci: '',
     phone: '',
@@ -51,31 +52,48 @@ const Register: React.FC = () => {
 
   const createUser = async () => {
     try {
-      await fetch(`/api/users`, {
+      const response = await fetch(`/api/users`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(newUser),
       });
-    } catch (error) {
-      console.log(error);
+      const data = await response.json();
+      if (response.ok) {
+        toast.success('Usuario registrado con éxito');
+        push('/');
+      } else {
+        toast.error(data.error);
+      }
+    } catch (error: any) {
+      toast.error(error.message + 'algo paso');
     }
   };
 
   const updateUser = async () => {
     const updatedUser = { ...newUser };
     delete updatedUser.password;
+
     try {
-      await fetch(`/api/users/${query.id}`, {
+      const response = await fetch(`/api/users/${query.id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(updatedUser),
       });
+      const data = await response.json();
+
+      if (response.ok) {
+        toast.success('Usuario actualizado con éxito');
+        push('/user/profile');
+      } else {
+        toast.error(data.message);
+      }
     } catch (error) {
       console.log(error);
+      toast.error('Error al actualizar usuario');
     }
   };
 
@@ -117,12 +135,8 @@ const Register: React.FC = () => {
 
     if (query.id) {
       await updateUser();
-      toast.success('Usuario actualizado con éxito');
-      push('/user/profile');
     } else {
       await createUser();
-      toast.success('Usuario registrado con éxito');
-      push('/home');
     }
   };
 

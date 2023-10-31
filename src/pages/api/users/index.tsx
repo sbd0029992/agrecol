@@ -27,6 +27,14 @@ async function handler(req: any, res: any) {
         return res.status(201).json(savedUser);
       } catch (error: any) {
         console.error('Error stack:', error.stack);
+
+        if (error.code === 11000) {
+          const field = Object.keys(error.keyValue)[0];
+          const value = error.keyValue[field];
+          const errorMessage = `El valor '${value}' ya existe para el campo '${field}'. Debe ser único.`;
+          return res.status(400).json({ error: errorMessage });
+        }
+
         return res.status(400).json({ error: error.message });
       }
 
