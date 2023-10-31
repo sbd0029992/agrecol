@@ -65,7 +65,7 @@ function ItemProduct({ name, price, photos, _id, weight, rack }: ProductProps) {
   }, [peso, price]);
 
   return (
-    <div>
+    <React.Fragment>
       <div className='flex w-[370px] flex-row justify-between'>
         <div className='flex flex-col'>
           <h1 className='text-center text-2xl font-semibold'>{name}</h1>
@@ -123,7 +123,7 @@ function ItemProduct({ name, price, photos, _id, weight, rack }: ProductProps) {
                   }
                 }}
                 id='peso'
-                className='h-[50px] w-2/6 self-center rounded-lg border-2 border-solid border-fourtiary text-center text-xl'
+                className='h-[50px] w-2/6  self-center rounded-lg border-2 border-solid border-fourtiary text-center text-[13px] sm:text-xl'
               />
               <h1 className='self-center'>KG</h1>
             </div>
@@ -131,7 +131,7 @@ function ItemProduct({ name, price, photos, _id, weight, rack }: ProductProps) {
           </div>
         </div>
       </div>
-    </div>
+    </React.Fragment>
   );
 }
 

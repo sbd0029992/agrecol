@@ -22,10 +22,13 @@ const DashboardPage = () => {
         weeklyData={dataForWeek.resultArray}
         monthlyData={dataForYear.resultArray}
       />
-      <DonutChart
-        labels={cashierSalesData.cajeroNames}
-        data={cashierSalesData.cajeroSold}
-      />
+      <div className='flex flex-col md:flex-row'>
+        <DonutChart
+          labels={cashierSalesData.cajeroNames}
+          data={cashierSalesData.cajeroSold}
+        />
+        <div className='h-[70px] md:hidden'></div>
+      </div>
     </div>
   );
 };

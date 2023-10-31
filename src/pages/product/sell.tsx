@@ -1,4 +1,4 @@
-import { useServerSidePermission } from 'hooks/permission/useServerSidePermission';
+import { useServerSideLogin } from 'hooks/permission/useServerSideLogin';
 import { ProductProps, RackProps } from 'interface/type';
 import withSession from 'lib/session';
 import React, { useEffect, useState } from 'react';
@@ -55,8 +55,8 @@ function List() {
 
   return (
     <div className='flex h-full min-h-[90vh] flex-row'>
-      <div className='w-full px-10 py-4'>
-        <div className='flex items-center self-center'>
+      <div className='w-full px-0 py-4 md:px-10'>
+        <div className='flex flex-col items-center justify-center gap-2 self-center sm:flex-row'>
           <input
             className='h-[50px] w-[300px] rounded-md border-2 px-2'
             type='text'
@@ -77,7 +77,8 @@ function List() {
             ))}
           </select>
         </div>
-        <div className='flex flex-row flex-wrap justify-center gap-5'>
+
+        <div className='flex flex-row flex-wrap justify-center gap-5 px-2 md:px-0'>
           {filteredProducts.map((product, index) => (
             <ItemProduct
               _id={product._id}
@@ -94,11 +95,12 @@ function List() {
             />
           ))}
         </div>
+        <div className='h-[50px] md:hidden'></div>
       </div>
     </div>
   );
 }
 
-export const getServerSideProps = withSession(useServerSidePermission);
+export const getServerSideProps = withSession(useServerSideLogin);
 
 export default List;

@@ -87,7 +87,7 @@ const Register: React.FC = () => {
 
   return (
     <div className='flex h-full min-h-[90vh] flex-row'>
-      <div className='flex w-[50vw] flex-col items-center justify-center bg-secondary px-10 py-4 '>
+      <div className='hidden w-[50vw] flex-col items-center justify-center bg-secondary px-10 py-4 md:flex '>
         <div className='w-full bg-white'>
           <img
             className='m-auto h-full w-full'
@@ -96,7 +96,7 @@ const Register: React.FC = () => {
           />
         </div>
       </div>
-      <div className='w-[50vw]  px-10 py-4  '>
+      <div className='w-full px-0 py-4 md:w-[50vw] md:px-10  '>
         <form onSubmit={handleSubmit} className='h-[95%]'>
           <div className='m-auto flex h-[99%] w-3/4 flex-col items-center  justify-center'>
             <div className='flex w-full flex-col items-center justify-center gap-5 '>

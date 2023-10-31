@@ -73,7 +73,7 @@ function Login() {
 
   return (
     <div className='flex h-full min-h-screen flex-row'>
-      <div className='flex w-[50vw] flex-col items-center justify-center bg-secondary px-10 py-4 '>
+      <div className='hidden w-[50vw] flex-col items-center justify-center bg-secondary px-10 py-4 md:flex '>
         <div className='w-full bg-white'>
           <img
             className='m-auto h-full w-full'
@@ -82,7 +82,7 @@ function Login() {
           />
         </div>
       </div>
-      <div className='w-[50vw]  px-10 py-4 '>
+      <div className='w-full px-10  py-4 md:w-[50vw]  '>
         <div className='m-auto flex h-[99%] w-3/4 flex-col items-center  justify-center'>
           <form onSubmit={handleSubmit}>
             <div className='flex w-full flex-col items-center justify-center gap-5 '>

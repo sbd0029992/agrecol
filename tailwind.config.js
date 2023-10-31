@@ -10,7 +10,7 @@ module.exports = {
         primary: '#4EA16F',
         secondary: '#2C73EB',
         tertiary: '#81C99D',
-        fourtiary: '#8DAEE7',
+        fourtiary: '#267549',
       },
 
       keyframes: {

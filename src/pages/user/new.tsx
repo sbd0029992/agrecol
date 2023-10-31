@@ -1,12 +1,9 @@
 /* eslint-disable @next/next/no-img-element */
-/* eslint-disable react-hooks/exhaustive-deps */
-import { useServerSideLogin } from 'hooks/permission/useServerSideLogin';
+import { useServerSidePermission } from 'hooks/permission/useServerSidePermission';
 import { NewUserProps } from 'interface/type';
 import withSession from 'lib/session';
-import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
-import { FaArrowLeft } from 'react-icons/fa';
 import { toast } from 'react-toastify';
 
 const today = new Date();
@@ -49,6 +46,7 @@ const Register: React.FC = () => {
     if (query.id) {
       getUser();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [query.id]);
 
   const createUser = async () => {
@@ -85,8 +83,17 @@ const Register: React.FC = () => {
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
     const { id, value } = e.target;
+
     if (id === 'confirmPassword') {
       setConfirmPassword(value);
+    } else if (id === 'name') {
+      if (/^[A-Za-z\s]*$/.test(value)) {
+        setNewUser({ ...newUser, [id]: value });
+      }
+    } else if (id === 'phone') {
+      if (/^[0-9]*$/.test(value)) {
+        setNewUser({ ...newUser, [id]: value });
+      }
     } else {
       setNewUser({ ...newUser, [id]: value });
     }
@@ -110,18 +117,18 @@ const Register: React.FC = () => {
 
     if (query.id) {
       await updateUser();
-      toast.success('Usuario actualizado con exito');
+      toast.success('Usuario actualizado con éxito');
       push('/user/profile');
     } else {
       await createUser();
-      toast.success('Usuario registrado con exito');
+      toast.success('Usuario registrado con éxito');
       push('/home');
     }
   };
 
   return (
     <div className='flex h-full min-h-screen flex-row'>
-      <div className='flex w-[50vw] flex-col items-center justify-center bg-secondary px-10 py-4 '>
+      <div className=' hidden w-[50vw] flex-col items-center justify-center bg-secondary px-10 py-4 md:flex '>
         <div className='w-full bg-white'>
           <img
             className='m-auto h-full w-full'
@@ -130,13 +137,7 @@ const Register: React.FC = () => {
           />
         </div>
       </div>
-      <div className='w-[50vw]  px-10 py-4 '>
-        <Link href='/'>
-          <p className='flex flex-row items-center gap-2 self-center'>
-            <FaArrowLeft className='text-lg text-gray-400' />
-            <p className='font-semibold text-gray-400'>Atrás</p>
-          </p>
-        </Link>
+      <div className='w-full  px-0 py-4  md:w-[50vw] md:px-10 '>
         <form onSubmit={handleSubmit}>
           <div className='m-auto flex h-[99%] w-3/4 flex-col items-center  justify-center'>
             <div className='flex w-full flex-col items-center justify-center gap-5 '>
@@ -152,6 +153,7 @@ const Register: React.FC = () => {
                 placeholder='Introducir su nombre completo'
                 value={newUser.name}
                 maxLength={60}
+                pattern='[A-Za-z\s]+'
               />
               <h1 className='self-start text-lg text-gray-400'>Genero</h1>
               <select
@@ -187,7 +189,7 @@ const Register: React.FC = () => {
                 type='text'
                 placeholder='Introducir su carnet de identidad'
                 value={newUser.ci}
-                maxLength={20}
+                maxLength={11}
               />
               <h1 className='self-start text-lg text-gray-400'>
                 Teléfono Celular
@@ -196,10 +198,15 @@ const Register: React.FC = () => {
                 id='phone'
                 onChange={handleChange}
                 className='h-[50px] w-full rounded-md border-2 border-fourtiary  px-2'
-                type='number'
+                type='text'
                 placeholder='Introducir su numero de celular'
                 value={newUser.phone}
+                minLength={8}
+                maxLength={8}
+                pattern='[0-9]{8}'
+                inputMode='numeric'
               />
+
               <h1 className='self-start text-lg text-gray-400'>
                 Correo Electronico
               </h1>
@@ -249,10 +256,19 @@ const Register: React.FC = () => {
                       !newUser.password ||
                       !confirmPassword
                 }
-                className='h-[50px] w-[300px] rounded-md bg-primary text-white'
+                className={`h-[50px] w-[300px] rounded-md ${
+                  showPasswordField &&
+                  (confirmPassword !== newUser.password ||
+                    !newUser.password ||
+                    !confirmPassword)
+                    ? 'bg-gray-400'
+                    : 'bg-primary'
+                } text-white`}
               >
                 {query.id ? 'Actualizar' : 'Registrar'}
               </button>
+
+              <div className='h-[50px]  md:hidden'></div>
             </div>
           </div>
         </form>
@@ -261,6 +277,6 @@ const Register: React.FC = () => {
   );
 };
 
-export const getServerSideProps = withSession(useServerSideLogin);
+export const getServerSideProps = withSession(useServerSidePermission);
 
 export default Register;

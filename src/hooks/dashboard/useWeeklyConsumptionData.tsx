@@ -24,14 +24,16 @@ export const useWeeklyConsumptionData = () => {
       const dayCount: { [key: number]: number } = {};
 
       weekData.forEach((data: any) => {
-        const dataTime = new Date(data.createdAt);
-        const day = dataTime.getDay();
-        const value = data.quantity;
+        if (data.status === 2) {
+          const dataTime = new Date(data.createdAt);
+          const day = dataTime.getDay();
+          const value = data.quantity;
 
-        if (!dayCount[day]) {
-          dayCount[day] = value;
-        } else {
-          dayCount[day] += value;
+          if (!dayCount[day]) {
+            dayCount[day] = value;
+          } else {
+            dayCount[day] += value;
+          }
         }
       });
 
@@ -39,12 +41,12 @@ export const useWeeklyConsumptionData = () => {
       const todayDay = today.getDay();
 
       for (let i = 0; i < 7; i++) {
-        const dayIndex = (todayDay - i + 7) % 7;
+        const dayIndex = (todayDay - (6 - i) + 7) % 7;
 
-        if (dayCount[dayIndex]) {
-          resultArray[dayIndex] = dayCount[dayIndex];
+        if (dayCount[dayIndex] !== undefined) {
+          resultArray[i] = dayCount[dayIndex];
         } else {
-          resultArray[dayIndex] = 0;
+          resultArray[i] = 0;
         }
       }
 

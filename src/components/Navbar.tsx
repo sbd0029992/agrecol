@@ -39,7 +39,7 @@ function Navbar() {
                   <li>
                     <Link
                       href='/user/new'
-                      className='md:text-md block   rounded py-2 pl-3 pr-4 text-sm text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:border-0 md:p-0 md:hover:bg-transparent md:hover:text-blue-700 md:dark:hover:bg-transparent md:dark:hover:text-blue-500 lg:text-lg'
+                      className='md:text-md block   rounded py-2 pl-3 pr-4 text-sm text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:border-0 md:p-0 md:hover:bg-transparent md:hover:text-green-700 md:dark:hover:bg-transparent md:dark:hover:text-green-200 lg:text-lg'
                     >
                       Reg. Cajero
                     </Link>
@@ -47,7 +47,7 @@ function Navbar() {
                   <li>
                     <Link
                       href='/rack/list'
-                      className='md:text-md block rounded py-2 pl-3 pr-4 text-sm text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:border-0 md:p-0 md:hover:bg-transparent md:hover:text-blue-700 md:dark:hover:bg-transparent md:dark:hover:text-blue-500 lg:text-lg'
+                      className='md:text-md block rounded py-2 pl-3 pr-4 text-sm text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:border-0 md:p-0 md:hover:bg-transparent md:hover:text-green-700 md:dark:hover:bg-transparent md:dark:hover:text-green-200 lg:text-lg'
                     >
                       Reg. Estante
                     </Link>
@@ -55,7 +55,7 @@ function Navbar() {
                   <li>
                     <Link
                       href='/user/list'
-                      className='md:text-md block rounded py-2 pl-3 pr-4 text-sm text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:border-0 md:p-0 md:hover:bg-transparent md:hover:text-blue-700 md:dark:hover:bg-transparent md:dark:hover:text-blue-500 lg:text-lg'
+                      className='md:text-md block rounded py-2 pl-3 pr-4 text-sm text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:border-0 md:p-0 md:hover:bg-transparent md:hover:text-green-700 md:dark:hover:bg-transparent md:dark:hover:text-green-200 lg:text-lg'
                     >
                       Lista Cajeros
                     </Link>
@@ -63,7 +63,7 @@ function Navbar() {
                   <li>
                     <Link
                       href='/sell/list'
-                      className='md:text-md block rounded py-2 pl-3 pr-4 text-sm text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:border-0 md:p-0 md:hover:bg-transparent md:hover:text-blue-700 md:dark:hover:bg-transparent md:dark:hover:text-blue-500 lg:text-lg'
+                      className='md:text-md block rounded py-2 pl-3 pr-4 text-sm text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:border-0 md:p-0 md:hover:bg-transparent md:hover:text-green-700 md:dark:hover:bg-transparent md:dark:hover:text-green-200 lg:text-lg'
                     >
                       Ventas
                     </Link>
@@ -71,7 +71,7 @@ function Navbar() {
                   <li>
                     <Link
                       href='/dashboard'
-                      className='md:text-md block rounded py-2 pl-3 pr-4 text-sm text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:border-0 md:p-0 md:hover:bg-transparent md:hover:text-blue-700 md:dark:hover:bg-transparent md:dark:hover:text-blue-500 lg:text-lg'
+                      className='md:text-md block rounded py-2 pl-3 pr-4 text-sm text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:border-0 md:p-0 md:hover:bg-transparent md:hover:text-green-700 md:dark:hover:bg-transparent md:dark:hover:text-green-200 lg:text-lg'
                     >
                       Dashboard
                     </Link>
@@ -79,7 +79,7 @@ function Navbar() {
                   <li>
                     <Link
                       href='/product/list'
-                      className='md:text-md block rounded py-2 pl-3 pr-4 text-sm text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:border-0 md:p-0 md:hover:bg-transparent md:hover:text-blue-700 md:dark:hover:bg-transparent md:dark:hover:text-blue-500 lg:text-lg'
+                      className='md:text-md block rounded py-2 pl-3 pr-4 text-sm text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:border-0 md:p-0 md:hover:bg-transparent md:hover:text-green-700 md:dark:hover:bg-transparent md:dark:hover:text-green-200 lg:text-lg'
                     >
                       Productos
                     </Link>
@@ -92,7 +92,7 @@ function Navbar() {
                   <li>
                     <Link
                       href='/product/cart'
-                      className='md:text-md block rounded py-2 pl-3 pr-4 text-sm text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:border-0 md:p-0 md:hover:bg-transparent md:hover:text-blue-700 md:dark:hover:bg-transparent md:dark:hover:text-blue-500 lg:text-lg'
+                      className='md:text-md block rounded py-2 pl-3 pr-4 text-sm text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:border-0 md:p-0 md:hover:bg-transparent md:hover:text-green-700 md:dark:hover:bg-transparent md:dark:hover:text-green-200 lg:text-lg'
                     >
                       Carrito
                     </Link>
@@ -100,7 +100,7 @@ function Navbar() {
                   <li>
                     <Link
                       href='/product/list'
-                      className='md:text-md block rounded py-2 pl-3 pr-4 text-sm text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:border-0 md:p-0 md:hover:bg-transparent md:hover:text-blue-700 md:dark:hover:bg-transparent md:dark:hover:text-blue-500 lg:text-lg'
+                      className='md:text-md block rounded py-2 pl-3 pr-4 text-sm text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:border-0 md:p-0 md:hover:bg-transparent md:hover:text-green-700 md:dark:hover:bg-transparent md:dark:hover:text-green-200 lg:text-lg'
                     >
                       Productos
                     </Link>
@@ -113,7 +113,7 @@ function Navbar() {
                   <li>
                     <a
                       onClick={toggleDropdown}
-                      className='md:text-md block rounded py-2 pl-3 pr-4 text-sm text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:border-0 md:p-0 md:hover:bg-transparent md:hover:text-blue-700 md:dark:hover:bg-transparent md:dark:hover:text-blue-500 lg:text-lg'
+                      className='md:text-md block rounded py-2 pl-3 pr-4 text-sm text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:border-0 md:p-0 md:hover:bg-transparent md:hover:text-green-700 md:dark:hover:bg-transparent md:dark:hover:text-green-200 lg:text-lg'
                     >
                       Usuario
                     </a>

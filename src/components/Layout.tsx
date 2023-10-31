@@ -17,10 +17,10 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
       {noNav.includes(asPath) ? null : (
         <div>
           <div className=' md:hidden'>
-            <BottomBar /> {/* Muestra BottomBar en pantallas pequeñas */}
+            <BottomBar />
           </div>
           <div className='hidden md:block md:h-[10vh]'>
-            <Navbar /> {/* Muestra Navbar en pantallas medianas y mayores */}
+            <Navbar />
           </div>
         </div>
       )}

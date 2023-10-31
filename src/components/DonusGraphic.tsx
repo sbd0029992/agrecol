@@ -77,9 +77,9 @@ export default function DonutChart({ labels, data }: DonutChartProps) {
     <div className='flex flex-col items-center'>
       <h1 className='mb-2 text-center'>Cajero con mas ventas</h1>
       <canvas
-        className='h-[300px] md:w-full'
-        width={360}
-        height={360}
+        className='h-[300px] '
+        width={300}
+        height={300}
         ref={canvasRef}
       ></canvas>
       <div className='mt-4 flex justify-center'>

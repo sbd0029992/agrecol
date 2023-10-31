@@ -24,13 +24,15 @@ export const useTopProductsSold = () => {
       const productsCount: { [key: string]: number } = {};
 
       weekData.forEach((data: any) => {
-        const productName = data.product.name;
-        const value = data.quantity;
+        if (data.status === 2) {
+          const productName = data.product.name;
+          const value = data.quantity;
 
-        if (!productsCount[productName]) {
-          productsCount[productName] = value;
-        } else {
-          productsCount[productName] += value;
+          if (!productsCount[productName]) {
+            productsCount[productName] = value;
+          } else {
+            productsCount[productName] += value;
+          }
         }
       });
 

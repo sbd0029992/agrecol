@@ -25,14 +25,19 @@ export const useCashierSalesData = () => {
         {};
 
       weekData.forEach((data: any) => {
-        const cashierId = data.user._id;
-        const cashierName = data.user.name;
-        const saleQuantity = data.quantity;
+        if (data.status === 2) {
+          const cashierId = data.user._id;
+          const cashierName = data.user.name;
+          const saleQuantity = data.quantity;
 
-        if (!cashierSales[cashierId]) {
-          cashierSales[cashierId] = { name: cashierName, sales: saleQuantity };
-        } else {
-          cashierSales[cashierId].sales += saleQuantity;
+          if (!cashierSales[cashierId]) {
+            cashierSales[cashierId] = {
+              name: cashierName,
+              sales: saleQuantity,
+            };
+          } else {
+            cashierSales[cashierId].sales += saleQuantity;
+          }
         }
       });
 

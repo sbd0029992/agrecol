@@ -250,8 +250,8 @@ function RegisterProduct() {
   };
 
   return (
-    <div className='m-auto flex h-full min-h-[90vh] w-1/2 flex-col py-2'>
-      <div className='w-full self-center px-10 '>
+    <div className='m-auto flex h-full min-h-[90vh] w-full flex-col py-2 md:w-1/2'>
+      <div className='w-full self-center md:px-10 '>
         <div className='m-auto flex h-[99%] w-3/4 flex-col items-center  justify-center'>
           <form className='w-full' onSubmit={handleSubmit}>
             <div className='flex w-full flex-col items-center justify-center gap-3 '>
@@ -271,14 +271,14 @@ function RegisterProduct() {
               <h1 className='self-start text-lg text-gray-400'>
                 Descripción del producto
               </h1>
-              <input
+              <textarea
                 id='description'
                 value={newProduct.description}
                 onChange={handleChange}
                 className='h-[100px] w-full rounded-md border-2 border-fourtiary  px-2'
                 placeholder='Breve descripción del producto'
                 maxLength={60}
-              />
+              ></textarea>
 
               <h1 className='self-start text-lg text-gray-400'>
                 Ubicación del Producto
@@ -431,19 +431,20 @@ function RegisterProduct() {
                 <button
                   type='submit'
                   disabled={loading}
-                  className={`rounded-full ${
-                    !loading ? 'bg-secondary py-2 px-4 text-white' : ''
+                  className={`rounded-lg ${
+                    !loading ? 'bg-primary py-2 px-4 text-white' : ''
                   }`}
                 >
                   {loading ? (
                     <LoadingSpinner />
                   ) : query.id ? (
-                    'Editar Producto'
+                    'Editar'
                   ) : (
-                    'Crear Producto'
+                    'Registrar'
                   )}
                 </button>
               </div>
+              <div className='h-[50px] md:hidden'></div>
             </div>
           </form>
         </div>

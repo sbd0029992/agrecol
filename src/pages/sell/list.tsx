@@ -105,7 +105,9 @@ function ListCardComplete() {
                   </div>
                 ) : (
                   <div className='flex h-[200px] w-[150px] flex-col items-center justify-center rounded-md bg-gray-300 '>
-                    <h1 className='text-lg font-bold'>Imagen no disponible</h1>
+                    <h1 className='text-center text-lg font-bold'>
+                      Imagen no disponible
+                    </h1>
                   </div>
                 )}
               </td>
@@ -123,6 +125,7 @@ function ListCardComplete() {
           ))}
         </tbody>
       </table>
+      <div className='h-[60px] md:hidden'></div>
     </div>
   );
 }

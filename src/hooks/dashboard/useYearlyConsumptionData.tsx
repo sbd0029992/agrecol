@@ -23,14 +23,16 @@ export const useYearlyConsumptionData = () => {
       const monthCount: { [key: number]: number } = {};
 
       yearData.forEach((data: any) => {
-        const dataTime = new Date(data.createdAt);
-        const month = dataTime.getMonth();
-        const value = data.quantity;
+        if (data.status === 2) {
+          const dataTime = new Date(data.createdAt);
+          const month = dataTime.getMonth();
+          const value = data.quantity;
 
-        if (!monthCount[month]) {
-          monthCount[month] = value;
-        } else {
-          monthCount[month] += value;
+          if (!monthCount[month]) {
+            monthCount[month] = value;
+          } else {
+            monthCount[month] += value;
+          }
         }
       });
 
