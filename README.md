@@ -51,3 +51,31 @@ Abre [http://localhost:3000](http://localhost:3000) con tu navegador para ver el
 ### 3. Convención para los mensajes de commit
 
 Este proyecto utiliza [convencional commits](https://www.conventionalcommits.org/en/v1.0.0/), es obligatorio utilizarlo para hacer commits.
+
+### 4. Arquitectura de carpetas
+
+```bash
+├── public               # Activos estáticos
+│   ├── favicon          # Iconos y favicon
+│   ├── fonts            # Fuentes tipográficas
+│   └── images           # Imágenes y gráficos
+├── src                  # Código fuente
+│   ├── clientServices   # Servicios relacionados con el cliente
+│   ├── components       # Componentes React reutilizables
+│   ├── constant         # Constantes globales
+│   ├── context          # Contextos de React
+│   ├── hooks            # Hooks personalizados de React
+│   │   ├── dashboard    # Hooks para el dashboard
+│   │   └── ...          # Otros hooks
+│   ├── interface        # Tipos y interfaces
+│   ├── lib              # Funciones y librerías auxiliares
+│   ├── middlewares      # Middlewares para Next.js y otras utilidades
+│   ├── models           # Modelos de datos
+│   ├── pages            # Páginas y rutas de Next.js
+│   │   └── api          # Rutas de la API
+    │   ├── carpetas     # Rutas de paginas
+│   ├── services         # Servicios para lógica de negocio
+│   ├── styles           # Archivos de estilos CSS/SCSS
+│   └── utils            # Utilidades y funciones auxiliares
+
+```
