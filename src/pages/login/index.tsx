@@ -86,10 +86,13 @@ function Login() {
         <div className='m-auto flex h-[99%] w-3/4 flex-col items-center  justify-center'>
           <form onSubmit={handleSubmit}>
             <div className='flex w-full flex-col items-center justify-center gap-5 '>
+              <img
+                className='m-auto h-full w-full md:hidden'
+                src='/images/agrecol.png'
+                alt='logo'
+              />
               <h1 className='self-start text-3xl font-bold'>Iniciar Sesión</h1>
-              <h1 className='self-start text-lg text-gray-400'>
-                Iniciar Sesión
-              </h1>
+              <h1 className='self-start text-lg text-gray-400'>Usuario</h1>
               <input
                 id='email'
                 onChange={emailHandler}
