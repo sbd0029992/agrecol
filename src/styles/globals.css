@@ -11,13 +11,13 @@
 
 /* Use @apply instead of @layer for one-off components */
 .background-registerProduct {
-  @apply flex h-[250px] w-full flex-col items-center  justify-center gap-3 bg-cover bg-center bg-no-repeat p-4 text-3xl font-semibold text-white md:h-auto md:w-1/2;
+  @apply flex h-1/2 w-full flex-col items-center  justify-center gap-3 bg-cover bg-center bg-no-repeat p-4 text-3xl font-semibold text-white md:h-auto md:w-1/2;
   background-image: url('/images/imgListProduct.jpg');
 }
 
 /* Use @apply instead of @layer for one-off components */
 .background-listProduct {
-  @apply flex h-[250px] w-full flex-col items-center justify-center gap-3 bg-cover bg-center bg-no-repeat p-4 text-3xl font-semibold text-white md:h-auto md:w-1/2;
+  @apply flex  h-1/2 w-full flex-col items-center justify-center gap-3 bg-cover bg-center bg-no-repeat p-4 text-3xl font-semibold text-white md:h-auto md:w-1/2;
   background-image: url('/images/imgRegisterProduct.jpg');
 }
 

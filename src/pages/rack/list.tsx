@@ -63,6 +63,7 @@ const ListRack: React.FC = () => {
               </div>
             ))}
           </div>
+          <div className='h-[50px] md:hidden'></div>
         </div>
       ) : (
         <p className='mt-4 text-gray-700'>No hay estantes registrados aún.</p>
