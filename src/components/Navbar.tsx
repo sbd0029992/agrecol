@@ -33,7 +33,7 @@ function Navbar() {
           </Link>
 
           <div className='hidden w-full md:block md:w-auto' id='navbar-default'>
-            <ul className='mt-4 flex flex-col rounded-lg border border-gray-100 p-4 font-medium dark:border-gray-700 md:mt-0 md:flex-row md:space-x-4  md:border-0 md:p-0'>
+            <ul className='mt-4 flex flex-col rounded-lg border border-gray-100 p-4 font-medium text-white dark:border-gray-700 md:mt-0 md:flex-row  md:space-x-4 md:border-0 md:p-0'>
               {userType === 'admin' && (
                 <React.Fragment>
                   <li>

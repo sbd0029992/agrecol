@@ -356,9 +356,6 @@ function RegisterProduct() {
               ) : null}
               {query.id ? (
                 <div>
-                  <label className='mb-2 mt-2 block text-sm font-medium text-gray-500 dark:text-white'>
-                    Logo
-                  </label>
                   <input
                     type='file'
                     id='photos'
