@@ -11,8 +11,8 @@ import { toast } from 'react-toastify';
 
 const userService = userServiceFactory();
 
-function Login() {
-  const { isLoggedIn, userLoaded } = useContext(AuthContext);
+function Index() {
+  const { isLoggedIn } = useContext(AuthContext);
   const { user, mutateUser } = useUser({
     redirectTo: '/',
     redirectIfFound: true,
@@ -20,36 +20,25 @@ function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
-  const { pathname, push } = useRouter();
+  const router = useRouter();
 
   useEffect(() => {
-    if (isLoggedIn && pathname !== '/') {
-      push('/');
+    const currentTime = Date.now();
+    const sessionExpiry = user?.sessionExpiry || 0;
+
+    if (
+      ((isLoggedIn || user?.isLoggedIn) && router.pathname !== '/') ||
+      currentTime > sessionExpiry
+    ) {
+      router.push('/');
     }
-  }, [isLoggedIn, push]);
+  }, [isLoggedIn, user?.isLoggedIn, user?.sessionExpiry, router.pathname]);
 
-  useEffect(() => {
-    if (userLoaded && (user?.isLoggedIn || isLoggedIn) && pathname !== '/') {
-      push('/');
-    }
-  }, [user, userLoaded, isLoggedIn, push]);
+  const handleEmailChange = (e: any) => setEmail(e.target.value);
+  const handlePasswordChange = (e: any) => setPassword(e.target.value);
 
-  useEffect(() => {
-    if (isLoggedIn) {
-      push('/');
-    }
-  }, [isLoggedIn, push]);
-
-  const emailHandler = (e: any) => {
-    setEmail(e.target.value);
-  };
-
-  const passwordHandler = (e: any) => {
-    setPassword(e.target.value);
-  };
   const handleSubmit = async (e: any) => {
     e.preventDefault();
-
     if (!email || !password) {
       toast.error('Por favor llene todos los campos');
       return;
@@ -59,22 +48,18 @@ function Login() {
     try {
       const response = await userService.login(email, password);
       mutateUser(response.data);
-    } catch (error: any) {
+      setLoading(false);
+      router.push('/');
+    } catch (error) {
       toast.error('El usuario o la contraseña son incorrectos');
       setLoading(false);
     }
   };
 
-  useEffect(() => {
-    if (userLoaded && (user?.isLoggedIn || isLoggedIn)) {
-      push('/');
-    }
-  }, [user, userLoaded, isLoggedIn, push]);
-
   return (
     <div className='flex h-full min-h-screen flex-row'>
-      <div className='hidden w-[50vw] flex-col items-center justify-center bg-secondary px-10 py-4 md:flex '>
-        <div className='w-full bg-white'>
+      <div className='hidden w-[50vw] flex-col items-center justify-center  px-10 py-4 md:flex '>
+        <div className='w-full'>
           <img
             className='m-auto h-full w-full'
             src='/images/agrecol.png'
@@ -82,7 +67,7 @@ function Login() {
           />
         </div>
       </div>
-      <div className='w-full px-10  py-4 md:w-[50vw]  '>
+      <div className='w-full bg-secondary  px-10 py-4 md:w-[50vw] '>
         <div className='m-auto flex h-[99%] w-3/4 flex-col items-center  justify-center'>
           <form onSubmit={handleSubmit}>
             <div className='flex w-full flex-col items-center justify-center gap-5 '>
@@ -91,20 +76,20 @@ function Login() {
                 src='/images/agrecol.png'
                 alt='logo'
               />
-              <h1 className='self-start text-3xl font-bold'>Iniciar Sesión</h1>
-              <h1 className='self-start text-lg text-gray-400'>Usuario</h1>
+              <h1 className='self-start text-3xl font-bold '>Iniciar Sesión</h1>
+              <h1 className='self-start text-lg text-gray-600 '>Usuario</h1>
               <input
                 id='email'
-                onChange={emailHandler}
-                className='h-[50px] w-full rounded-md border-2  px-2'
+                onChange={handleEmailChange}
+                className='h-[50px] w-full rounded-md border-2  px-2 '
                 type='text'
                 placeholder='cajero@gmail.com'
               />
-              <h1 className='self-start text-lg text-gray-400'>Contraseña</h1>
+              <h1 className='self-start text-lg'>Contraseña</h1>
               <input
                 id='password'
-                onChange={passwordHandler}
-                className='h-[50px] w-full rounded-md border-2  px-2'
+                onChange={handlePasswordChange}
+                className='h-[50px] w-full rounded-md border-2  px-2 text-gray-600'
                 type='password'
                 placeholder='********'
               />
@@ -123,4 +108,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default Index;

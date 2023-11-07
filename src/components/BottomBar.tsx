@@ -29,8 +29,8 @@ function BottomBar() {
       <nav className='fixed inset-x-0 bottom-0 flex items-center justify-evenly bg-fourtiary p-4'>
         <Link href='/'>
           <div className='flex flex-col items-center gap-1'>
-            <FaHome size={16} className='text-white' />
-            <span className='text-[10px] text-white'>Home</span>
+            <FaHome size={14} className='text-white' />
+            <span className='text-[8px] text-white'>Home</span>
           </div>
         </Link>
 
@@ -38,36 +38,43 @@ function BottomBar() {
           <React.Fragment>
             <Link href='/user/new'>
               <div className='flex flex-col items-center gap-1'>
-                <FaUser size={16} className='text-white' />
-                <span className='text-[10px] text-white'>Cajero</span>
+                <FaUser size={14} className='text-white' />
+                <span className='text-[8px] text-white'>R. Cajero</span>
+              </div>
+            </Link>
+
+            <Link href='/user/list'>
+              <div className='flex flex-col items-center gap-1'>
+                <FaUser size={14} className='text-white' />
+                <span className='text-[8px] text-white'>L. Cajero</span>
               </div>
             </Link>
 
             <Link href='/rack/list'>
               <div className='flex flex-col items-center gap-1'>
-                <FaList size={16} className='text-white' />
-                <span className='text-[10px] text-white'>Estante</span>
+                <FaList size={14} className='text-white' />
+                <span className='text-[8px] text-white'>Estante</span>
               </div>
             </Link>
 
             <Link href='/sell/list'>
               <div className='flex flex-col items-center gap-1'>
-                <FaDollarSign size={16} className='text-white' />
-                <span className='text-[10px] text-white'>Ventas</span>
+                <FaDollarSign size={14} className='text-white' />
+                <span className='text-[8px] text-white'>Ventas</span>
               </div>
             </Link>
 
             <Link href='/dashboard'>
               <div className='flex flex-col items-center gap-1'>
-                <FaChartBar size={16} className='text-white' />
-                <span className='text-[10px] text-white'>Dashboard</span>
+                <FaChartBar size={14} className='text-white' />
+                <span className='text-[8px] text-white'>Dashboard</span>
               </div>
             </Link>
 
             <Link href='/product/list'>
               <div className='flex flex-col items-center gap-1'>
-                <FaList size={16} className='text-white' />
-                <span className='text-[10px] text-white'>Productos</span>
+                <FaList size={14} className='text-white' />
+                <span className='text-[8px] text-white'>Productos</span>
               </div>
             </Link>
           </React.Fragment>
@@ -77,15 +84,15 @@ function BottomBar() {
           <React.Fragment>
             <Link href='/product/cart'>
               <div className='flex flex-col items-center gap-1'>
-                <FaShoppingCart size={16} className='text-white' />
-                <span className='text-[10px] text-white'>Carrito</span>
+                <FaShoppingCart size={14} className='text-white' />
+                <span className='text-[8px] text-white'>Carrito</span>
               </div>
             </Link>
 
             <Link href='/product/list'>
               <div className='flex flex-col items-center gap-1'>
-                <FaList size={16} className='text-white' />
-                <span className='text-[10px] text-white'>Productos</span>
+                <FaList size={14} className='text-white' />
+                <span className='text-[8px] text-white'>Productos</span>
               </div>
             </Link>
           </React.Fragment>
@@ -93,11 +100,11 @@ function BottomBar() {
 
         <div className='relative flex flex-col items-center gap-1'>
           <FaUserEdit
-            size={16}
+            size={14}
             className='text-white'
             onClick={toggleDropdown}
           />
-          <span className='text-[10px] text-white'>Usuario</span>
+          <span className='text-[8px] text-white'>Usuario</span>
 
           {isOpen && (
             <ul className='absolute left-auto right-0 bottom-full mb-2 w-48 rounded-lg border border-gray-300 bg-white shadow-lg'>

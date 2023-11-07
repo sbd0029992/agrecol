@@ -23,14 +23,17 @@ function List() {
 
   return (
     <div className='flex h-full min-h-[90vh] w-full items-center justify-center'>
-      <div className='flex flex-wrap items-center justify-center gap-4'>
-        {newCashiers.map((cashier) => (
-          <CardCashier
-            key={cashier._id}
-            _id={cashier._id}
-            name={cashier.name}
-          />
-        ))}
+      <div>
+        <div className='flex flex-wrap items-center justify-center gap-4'>
+          {newCashiers.map((cashier) => (
+            <CardCashier
+              key={cashier._id}
+              _id={cashier._id}
+              name={cashier.name}
+            />
+          ))}
+        </div>
+        <div className='h-[100px] md:hidden'></div>
       </div>
     </div>
   );

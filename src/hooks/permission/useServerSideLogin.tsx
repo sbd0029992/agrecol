@@ -7,6 +7,13 @@ export const useServerSideLogin = async (context: any) => {
   const user = req.session.get('user');
   const cookie = context.req.headers.cookie;
 
+  const currentTime = Date.now();
+  const sessionExpiry = user?.sessionExpiry || 0;
+
+  if (!user || currentTime > sessionExpiry) {
+    return redirectToLogin;
+  }
+
   if (!user) return redirectToLogin;
 
   try {

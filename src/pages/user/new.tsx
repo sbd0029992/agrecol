@@ -126,8 +126,7 @@ const Register: React.FC = () => {
       !newUser.gender ||
       !newUser.birthdate ||
       !newUser.ci ||
-      !newUser.phone ||
-      !newUser.password
+      !newUser.phone
     ) {
       alert('Todos los campos son obligatorios');
       return;
