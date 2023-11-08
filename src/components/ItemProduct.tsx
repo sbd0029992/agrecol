@@ -36,7 +36,7 @@ function ItemProduct({ name, price, photos, _id, weight, rack }: ProductProps) {
 
   const handleAddToCart = async () => {
     if (peso <= 0) {
-      toast.error('El peso debe ser al menos 0.5kg para agregar al carrito.');
+      toast.error('El peso debe ser al menos 0.1kg para agregar al carrito.');
       return;
     }
     if (dataUser && dataUser.isLoggedIn) {
@@ -108,8 +108,7 @@ function ItemProduct({ name, price, photos, _id, weight, rack }: ProductProps) {
                 />
               </div>
               <input
-                type='text'
-                disabled={true}
+                type='number'
                 placeholder='0'
                 value={peso}
                 onChange={(e) => {

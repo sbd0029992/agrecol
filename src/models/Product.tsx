@@ -12,7 +12,7 @@ const ProductSchema = new Schema(
     description: {
       type: String,
       trim: true,
-      maxlength: [60, 'Plate cannot be more than 60 characters'],
+      maxlength: [120, 'Plate cannot be more than 60 characters'],
       default: 'user',
     },
     rack: {

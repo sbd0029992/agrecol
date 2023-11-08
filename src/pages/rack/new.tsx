@@ -103,7 +103,7 @@ const RegisterRack: React.FC = () => {
   };
 
   return (
-    <div className='text m-auto flex h-full min-h-[90vh] w-full flex-col items-center justify-center px-10 py-4 sm:w-2/5  '>
+    <div className='text tex-text m-auto flex h-full min-h-[90vh] w-full flex-col items-center justify-center px-10 py-4 sm:w-2/5  '>
       <form onSubmit={handleSubmit}>
         <div className='flex w-full flex-col items-center justify-center gap-5 '>
           <h1 className='-bold self-start text-3xl font-bold'>
@@ -117,7 +117,7 @@ const RegisterRack: React.FC = () => {
             className='h-[50px] w-full rounded-md border-2 border-fourtiary  px-2 sm:h-2/6'
             type='text'
             placeholder='Introducir nombre de estante'
-            maxLength={20}
+            maxLength={60}
           />
           <h1 className='self-start text-lg text-gray-400'>
             Descripción Estante
@@ -128,7 +128,7 @@ const RegisterRack: React.FC = () => {
             value={newRack.description}
             className='h-[100px] w-full flex-wrap rounded-md border-2 border-fourtiary px-2 '
             placeholder='Descripción de estante'
-            maxLength={60}
+            maxLength={120}
           />
           {query.id ? (
             <div className='flex items-center justify-between'>

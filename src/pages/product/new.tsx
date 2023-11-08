@@ -277,7 +277,7 @@ function RegisterProduct() {
                 onChange={handleChange}
                 className='h-[100px] w-full rounded-md border-2 border-fourtiary  px-2'
                 placeholder='Breve descripción del producto'
-                maxLength={60}
+                maxLength={120}
               ></textarea>
 
               <h1 className='self-start text-lg text-gray-400'>
@@ -318,8 +318,8 @@ function RegisterProduct() {
                 onChange={handleChange}
                 className='h-[50px] w-full rounded-md border-2 border-fourtiary  px-2'
                 type='number'
-                min='0.5'
-                step='0.5'
+                min='0.1'
+                step='0.1'
                 max='10000'
               />
               <h1 className='self-start text-lg text-gray-400'>

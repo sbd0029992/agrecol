@@ -120,7 +120,7 @@ function Cart() {
     <div>
       <div className='px-2 py-4'>
         <Link
-          className='rounded-md bg-secondary py-2 px-4 text-white '
+          className='rounded-md bg-primary py-2 px-4 text-white '
           href='/product/sell'
         >
           {cartItems.length > 0 ? 'Seguir comprando' : 'Comprar productos'}
@@ -182,7 +182,7 @@ function Cart() {
           </table>
           <div className='mt-4 flex justify-center'>
             <button
-              className='rounded-md bg-secondary py-2 px-4 text-white'
+              className='rounded-md bg-fourtiary py-2 px-4 text-white'
               onClick={() => setShowConfirmModal(true)}
             >
               Confirmar

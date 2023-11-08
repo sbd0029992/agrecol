@@ -55,7 +55,7 @@ const ListRack: React.FC = () => {
                   </span>
                 </div>
                 <Link
-                  className='mt-4 inline-block rounded bg-yellow-500 p-2 text-white hover:bg-yellow-700'
+                  className=' inline-block rounded bg-button p-2 text-white '
                   href={`/rack/${rack._id}/edit`}
                 >
                   Editar

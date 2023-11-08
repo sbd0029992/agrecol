@@ -24,16 +24,16 @@ function CardProfile({ id, name, ci, email, date, phone }: CardProfileProps) {
         <p className='text-gray-800'>{ci}</p>
       </div>
       <div className='self-start'>
-        <h2 className='text-lg font-semibold'>Correo Electrónico:</h2>
-        <p className='text-gray-800'>{email}</p>
+        <h2 className='text-lg font-semibold'>Teléfono:</h2>
+        <p className='text-gray-800'>{phone}</p>
       </div>
       <div className='self-start'>
         <h2 className='text-lg font-semibold'>Fecha de Nacimiento:</h2>
         <p className='text-gray-800'>{date}</p>
       </div>
       <div className='self-start'>
-        <h2 className='text-lg font-semibold'>Teléfono:</h2>
-        <p className='text-gray-800'>{phone}</p>
+        <h2 className='text-lg font-semibold'>Usuario:</h2>
+        <p className='text-gray-800'>{email}</p>
       </div>
       <div className='flex flex-row justify-evenly gap-2'>
         <Link

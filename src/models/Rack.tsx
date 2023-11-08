@@ -5,13 +5,13 @@ const RackSchema = new Schema(
     name: {
       type: String,
       trim: true,
-      maxlength: [20, 'Plate cannot be more than 20 characters'],
+      maxlength: [60, 'Plate cannot be more than 20 characters'],
       unique: false,
     },
     description: {
       type: String,
       trim: true,
-      maxlength: [60, 'Plate cannot be more than 60 characters'],
+      maxlength: [120, 'Plate cannot be more than 60 characters'],
       default: 'user',
     },
     status: {

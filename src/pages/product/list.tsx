@@ -26,7 +26,7 @@ const ListRack: React.FC = () => {
       <div className='p-4'>
         <Link
           href='/product/new'
-          className='rounded-md bg-secondary py-2 px-4 text-lg text-white'
+          className='rounded-md bg-fourtiary py-2 px-4 text-lg text-white'
         >
           Registrar Productos
         </Link>
@@ -69,7 +69,7 @@ const ListRack: React.FC = () => {
             </div>
             <div className='mt-2 flex flex-row items-center justify-center'>
               <Link
-                className='rounded-md bg-secondary py-2 px-4 text-lg text-white'
+                className='rounded-md bg-button py-2 px-4 text-lg text-white'
                 href={`/product/${product._id}/edit`}
               >
                 Editar
