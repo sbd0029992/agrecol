@@ -105,20 +105,27 @@ const Register: React.FC = () => {
 
     if (id === 'confirmPassword') {
       setConfirmPassword(value);
-      // Comprueba si las contraseñas coinciden y actualiza el mensaje de error
       setPasswordError(
         value === newUser.password ? '' : 'Las contraseñas no coinciden'
       );
     } else if (id === 'password') {
       setNewUser({ ...newUser, password: value });
-      // Comprueba si las contraseñas coinciden y actualiza el mensaje de error
       setPasswordError(
         confirmPassword === value ? '' : 'Las contraseñas no coinciden'
       );
+    } else if (id === 'name') {
+      if (/^[A-Za-z\s]*$/.test(value)) {
+        setNewUser({ ...newUser, [id]: value });
+      }
+    } else if (id === 'phone') {
+      if (/^[0-9]*$/.test(value)) {
+        setNewUser({ ...newUser, [id]: value });
+      }
     } else {
       setNewUser({ ...newUser, [id]: value });
     }
   };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -167,6 +174,7 @@ const Register: React.FC = () => {
                 type='text'
                 placeholder='Introducir su nombre completo'
                 value={newUser.name}
+                minLength={5}
                 maxLength={100}
                 pattern='[A-Za-z\s]+'
               />
