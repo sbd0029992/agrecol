@@ -83,7 +83,7 @@ function Index() {
                 onChange={handleEmailChange}
                 className='h-[50px] w-full rounded-md border-2  px-2 text-black '
                 type='text'
-                placeholder='cajero@gmail.com'
+                placeholder='cajero'
               />
               <h1 className='self-start text-lg '>Contraseña</h1>
               <input
