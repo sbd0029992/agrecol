@@ -11,9 +11,15 @@ function CardCashier({ name, _id }: NewUserProps) {
         <h1 className='text-center'>{name}</h1>
         <Link
           href={`/user/${_id}/edit`}
-          className='w-min self-center rounded-md bg-secondary py-2 px-3 text-white'
+          className='w-min self-center rounded-md bg-button py-2 px-3 text-white'
         >
           Editar
+        </Link>
+        <Link
+          href={`/user/${_id}/adminPassword`}
+          className='w-min self-center rounded-md bg-primary py-2 px-3 text-white'
+        >
+          Contraseña
         </Link>
       </div>
     </div>

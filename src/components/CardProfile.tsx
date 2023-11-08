@@ -13,7 +13,7 @@ interface CardProfileProps {
 function CardProfile({ id, name, ci, email, date, phone }: CardProfileProps) {
   return (
     <div className='flex h-full w-[300px] flex-col items-center justify-center gap-2 rounded-lg rounded-lg bg-gray-200 py-4 px-6 shadow-md'>
-      <h1 className='text-2xl font-bold'>Cajero</h1>
+      <h1 className='text-2xl font-bold'>Perfil</h1>
       <div className='my-2 w-full border-b border-gray-400'></div>
       <div className='self-start'>
         <h2 className='text-lg font-semibold'>Nombre Completo:</h2>
@@ -38,15 +38,15 @@ function CardProfile({ id, name, ci, email, date, phone }: CardProfileProps) {
       <div className='flex flex-row justify-evenly gap-2'>
         <Link
           href={`/user/${id}/edit`}
-          className='rounded-lg bg-secondary py-2 px-4 text-sm text-white'
+          className='rounded-lg bg-primary py-2 px-4 text-xs text-white'
         >
           Editar Perfil
         </Link>
         <Link
           href={`/user/${id}/password`}
-          className='rounded-lg bg-secondary py-2 px-4 text-sm text-white'
+          className='rounded-lg bg-primary py-2 px-4 text-xs text-white'
         >
-          Cambiar Pass
+          Cambiar Contraseña
         </Link>
       </div>
     </div>

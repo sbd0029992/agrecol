@@ -67,7 +67,7 @@ function Index() {
           />
         </div>
       </div>
-      <div className='w-full bg-secondary  px-10 py-4 md:w-[50vw] '>
+      <div className='w-full bg-secondary  px-10 py-4 text-text md:w-[50vw] '>
         <div className='m-auto flex h-[99%] w-3/4 flex-col items-center  justify-center'>
           <form onSubmit={handleSubmit}>
             <div className='flex w-full flex-col items-center justify-center gap-5 '>
@@ -77,19 +77,19 @@ function Index() {
                 alt='logo'
               />
               <h1 className='self-start text-3xl font-bold '>Iniciar Sesión</h1>
-              <h1 className='self-start text-lg text-gray-600 '>Usuario</h1>
+              <h1 className='self-start text-lg  '>Usuario</h1>
               <input
                 id='email'
                 onChange={handleEmailChange}
-                className='h-[50px] w-full rounded-md border-2  px-2 '
+                className='h-[50px] w-full rounded-md border-2  px-2 text-black '
                 type='text'
                 placeholder='cajero@gmail.com'
               />
-              <h1 className='self-start text-lg'>Contraseña</h1>
+              <h1 className='self-start text-lg '>Contraseña</h1>
               <input
                 id='password'
                 onChange={handlePasswordChange}
-                className='h-[50px] w-full rounded-md border-2  px-2 text-gray-600'
+                className='h-[50px] w-full rounded-md border-2  px-2 text-black'
                 type='password'
                 placeholder='********'
               />

@@ -16,6 +16,7 @@ const Register: React.FC = () => {
   const { query, push } = useRouter();
   const [showPasswordField, setShowPasswordField] = useState(true);
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [passwordError, setPasswordError] = useState('');
   const [newUser, setNewUser] = useState<NewUserProps>({
     name: '',
     email: '',
@@ -104,19 +105,20 @@ const Register: React.FC = () => {
 
     if (id === 'confirmPassword') {
       setConfirmPassword(value);
-    } else if (id === 'name') {
-      if (/^[A-Za-z\s]*$/.test(value)) {
-        setNewUser({ ...newUser, [id]: value });
-      }
-    } else if (id === 'phone') {
-      if (/^[0-9]*$/.test(value)) {
-        setNewUser({ ...newUser, [id]: value });
-      }
+      // Comprueba si las contraseñas coinciden y actualiza el mensaje de error
+      setPasswordError(
+        value === newUser.password ? '' : 'Las contraseñas no coinciden'
+      );
+    } else if (id === 'password') {
+      setNewUser({ ...newUser, password: value });
+      // Comprueba si las contraseñas coinciden y actualiza el mensaje de error
+      setPasswordError(
+        confirmPassword === value ? '' : 'Las contraseñas no coinciden'
+      );
     } else {
       setNewUser({ ...newUser, [id]: value });
     }
   };
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -141,8 +143,8 @@ const Register: React.FC = () => {
 
   return (
     <div className='flex h-full min-h-screen flex-row'>
-      <div className=' hidden w-[50vw] flex-col items-center justify-center bg-secondary px-10 py-4 md:flex '>
-        <div className='w-full bg-white'>
+      <div className=' hidden w-[50vw] flex-col items-center justify-center px-10 py-4 md:flex '>
+        <div className='w-full '>
           <img
             className='m-auto h-full w-full'
             src='/images/agrecol.png'
@@ -150,7 +152,7 @@ const Register: React.FC = () => {
           />
         </div>
       </div>
-      <div className='w-full  px-0 py-4  md:w-[50vw] md:px-10 '>
+      <div className='w-full  bg-secondary px-0  py-4 text-text md:w-[50vw] md:px-10 '>
         <form onSubmit={handleSubmit}>
           <div className='m-auto flex h-[99%] w-3/4 flex-col items-center  justify-center'>
             <div className='flex w-full flex-col items-center justify-center gap-5 '>
@@ -165,7 +167,7 @@ const Register: React.FC = () => {
                 type='text'
                 placeholder='Introducir su nombre completo'
                 value={newUser.name}
-                maxLength={60}
+                maxLength={100}
                 pattern='[A-Za-z\s]+'
               />
               <h1 className='self-start text-lg text-gray-400'>Genero</h1>
@@ -202,7 +204,7 @@ const Register: React.FC = () => {
                 type='text'
                 placeholder='Introducir su carnet de identidad'
                 value={newUser.ci}
-                maxLength={11}
+                maxLength={14}
               />
               <h1 className='self-start text-lg text-gray-400'>
                 Teléfono Celular
@@ -220,15 +222,13 @@ const Register: React.FC = () => {
                 inputMode='numeric'
               />
 
-              <h1 className='self-start text-lg text-gray-400'>
-                Correo Electronico
-              </h1>
+              <h1 className='self-start text-lg text-gray-400'>Usuario</h1>
               <input
                 id='email'
                 onChange={handleChange}
                 className='h-[50px] w-full rounded-md border-2 border-fourtiary  px-2'
-                type='email'
-                placeholder='Introducir su correo electronico'
+                type='text'
+                placeholder='Introducir su usuario'
                 value={newUser.email}
                 maxLength={40}
               />
@@ -258,6 +258,9 @@ const Register: React.FC = () => {
                     value={confirmPassword}
                     maxLength={60}
                   />
+                  {passwordError && (
+                    <p className='text-red-500'>{passwordError}</p> // Mensaje de error estilizado
+                  )}
                 </React.Fragment>
               )}
               <button

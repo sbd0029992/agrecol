@@ -5,7 +5,7 @@ const UserSchema = new Schema(
     name: {
       type: String,
       trim: true,
-      maxlength: [60, 'Plate cannot be more than 20 characters'],
+      maxlength: [100, 'Plate cannot be more than 20 characters'],
       unique: false,
     },
     email: {

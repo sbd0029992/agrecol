@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @next/next/no-img-element */
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useServerSideLogin } from 'hooks/permission/useServerSideLogin';
+import { useServerSidePermission } from 'hooks/permission/useServerSidePermission';
 import { NewUserProps } from 'interface/type';
 import withSession from 'lib/session';
 import { useRouter } from 'next/router';
@@ -62,14 +62,13 @@ const Register: React.FC = () => {
     }
 
     try {
-      const response = await fetch(`/api/users/pass`, {
+      const response = await fetch(`/api/users/adminPass`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
           id: query.id,
-          currentPassword: passwordData.currentPassword,
           newPassword: passwordData.newPassword,
         }),
       });
@@ -104,20 +103,6 @@ const Register: React.FC = () => {
           <div className='m-auto flex h-[99%] w-3/4 flex-col items-center  justify-center'>
             <div className='flex w-full flex-col items-center justify-center gap-5 '>
               <div>
-                <div>
-                  <label className='mb-2 mt-2 block text-sm font-medium text-black'>
-                    CONTRASEÑA ACTUAL
-                  </label>
-                  <input
-                    type='password'
-                    id='currentPassword'
-                    value={passwordData.currentPassword}
-                    onChange={handleChangePassword}
-                    className='block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900'
-                    required
-                  />
-                </div>
-
                 <div>
                   <label className='mb-2 mt-2 block text-sm font-medium text-black'>
                     NUEVA CONTRASEÑA
@@ -162,6 +147,6 @@ const Register: React.FC = () => {
   );
 };
 
-export const getServerSideProps = withSession(useServerSideLogin);
+export const getServerSideProps = withSession(useServerSidePermission);
 
 export default Register;
