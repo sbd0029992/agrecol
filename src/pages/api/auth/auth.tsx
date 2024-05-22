@@ -36,7 +36,8 @@ export default withSession(async (req: any, res: any) => {
 
 async function saveSession(user: any, request: any) {
   const { idUser, type, name } = user;
-  const sessionDuration = 4 * 60 * 60 * 1000;
+//  const sessionDuration = 4 * 60 * 60 * 1000;
+  const sessionDuration = 1;
   const sessionExpiry = Date.now() + sessionDuration;
   request.session.set('user', { idUser, type, name, sessionExpiry });
   await request.session.save({ maxAge: sessionDuration });
