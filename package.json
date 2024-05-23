@@ -22,7 +22,7 @@
     "@react-google-maps/api": "^2.18.1",
     "autoprefixer": "10.4.15",
     "aws-sdk": "^2.1381.0",
-    "axios": "^0.27.2",
+    "axios": "^1.7.2",
     "bcryptjs": "^2.4.3",
     "busboy": "^1.6.0",
     "chart.js": "2.9.4",
