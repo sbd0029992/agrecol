@@ -16,7 +16,11 @@ const authMiddleware = (handler: any) =>
       referer && referer.startsWith(process.env.NEXT_PUBLIC_API_URL);
 
     if (isBrowser && !isFromFrontendApp) {
-      res.writeHead(302, { Location: '/' });
+      //location / and /user/userRegister
+      const location = req.url === '/' ? '/user/userRegister' : '/';
+
+      res.writeHead(302, { Location: location });
+
       res.end();
       return;
     }

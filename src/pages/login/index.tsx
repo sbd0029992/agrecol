@@ -5,6 +5,7 @@ import userServiceFactory from 'clientServices/userService';
 import LoadingSpinner from 'components/LoadingSpinner';
 import { AuthContext } from 'context/authContext';
 import useUser from 'lib/useUser';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useContext, useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
@@ -93,13 +94,22 @@ function Index() {
                 type='password'
                 placeholder='********'
               />
-              <button
-                type='submit'
-                disabled={loading}
-                className='h-[50px] w-[300px] rounded-md bg-primary text-white'
-              >
-                {loading ? <LoadingSpinner /> : 'Acceder'}
-              </button>
+              <div className='flex w-full flex-col justify-between gap-3'>
+                <button
+                  type='submit'
+                  disabled={loading}
+                  className='h-[50px] w-[300px] rounded-md bg-primary text-white'
+                >
+                  {loading ? <LoadingSpinner /> : 'Acceder'}
+                </button>
+
+                <Link
+                  href='/user/userRegister'
+                  className='flex h-[50px] w-[300px] items-center justify-center rounded-md bg-primary text-white'
+                >
+                  Registrar
+                </Link>
+              </div>
             </div>
           </form>
         </div>

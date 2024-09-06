@@ -51,6 +51,8 @@ export interface NewUserProps {
   ci?: string;
   phone?: string;
   password?: string;
+  latitude?: number | string;
+  longitude?: number | string;
 }
 export interface ProductProps {
   _id?: string;

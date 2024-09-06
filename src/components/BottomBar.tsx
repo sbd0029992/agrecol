@@ -80,7 +80,7 @@ function BottomBar() {
           </React.Fragment>
         )}
 
-        {userType === 'cashier' && (
+        {(userType === 'cashier' || userType === 'user') && (
           <React.Fragment>
             <Link href='/product/cart'>
               <div className='flex flex-col items-center gap-1'>
@@ -88,13 +88,14 @@ function BottomBar() {
                 <span className='text-[8px] text-white'>Carrito</span>
               </div>
             </Link>
-
-            <Link href='/product/list'>
-              <div className='flex flex-col items-center gap-1'>
-                <FaList size={14} className='text-white' />
-                <span className='text-[8px] text-white'>Productos</span>
-              </div>
-            </Link>
+            {userType === 'cashier' && (
+              <Link href='/product/list'>
+                <div className='flex flex-col items-center gap-1'>
+                  <FaList size={14} className='text-white' />
+                  <span className='text-[8px] text-white'>Productos</span>
+                </div>
+              </Link>
+            )}
           </React.Fragment>
         )}
 

@@ -44,7 +44,17 @@ const UserSchema = new Schema(
       type: String,
       trim: true,
       maxlength: [20, 'Plate cannot be more than 20 characters'],
-      default: 'cashier',
+      enum: ['admin', 'cashier', 'user', 'delivery'],
+      default: 'user',
+      required: false,
+    },
+    latitude: {
+      type: Number,
+      required: false,
+    },
+    longitude: {
+      type: Number,
+      required: false,
     },
     status: {
       type: String,
@@ -56,5 +66,7 @@ const UserSchema = new Schema(
     versionKey: false,
   }
 );
+
+UserSchema.index({ location: '2dsphere' });
 
 export default mongoose.models.User || mongoose.model('User', UserSchema);

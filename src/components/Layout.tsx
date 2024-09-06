@@ -10,7 +10,7 @@ interface LayoutProps {
 const Layout: React.FC<LayoutProps> = ({ children }) => {
   const router = useRouter();
   const { asPath } = router;
-  const noNav = ['/login'];
+  const noNav = ['/login', '/user/userRegister'];
 
   return (
     <>
