@@ -1,48 +1,124 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { endOfMonth, endOfWeek, startOfMonth, startOfWeek } from 'date-fns';
 import authMiddleware from 'middlewares/authMiddleware';
 import Cart from 'models/Cart';
-import Product from 'models/Product';
-import User from 'models/User';
 import { dbConnect } from 'utils/mongosee';
 
 dbConnect();
 
-const handleRequest = async (
-  req: { method: any; body: any; query: any },
-  res: {
-    status: (arg0: number) => {
-      json: (arg0: any) => any;
-    };
-  }
-) => {
-  const { method, query } = req;
+const handleRequest = async (req: any, res: any) => {
+  const { method } = req;
 
   switch (method) {
     case 'GET':
       try {
-        const { startDate, endDate } = query;
+        const now = new Date();
+        const weekStart = startOfWeek(now);
+        const weekEnd = endOfWeek(now);
+        const monthStart = startOfMonth(now);
+        const monthEnd = endOfMonth(now);
 
-        if (startDate && endDate) {
-          const sales = await Cart.find({
-            createdAt: {
-              $gte: new Date(startDate),
-              $lte: new Date(endDate),
+        // Get weekly sales
+        const weeklySales = await Cart.find({
+          createdAt: { $gte: weekStart, $lte: weekEnd },
+        })
+          .populate('product')
+          .populate('user');
+
+        // Get monthly sales
+        const monthlySales = await Cart.find({
+          createdAt: { $gte: monthStart, $lte: monthEnd },
+        })
+          .populate('product')
+          .populate('user');
+
+        // Calculate top products
+        const topProducts = await Cart.aggregate([
+          { $group: { _id: '$product', totalQuantity: { $sum: '$quantity' } } },
+          { $sort: { totalQuantity: -1 } },
+          { $limit: 5 },
+          {
+            $lookup: {
+              from: 'products',
+              localField: '_id',
+              foreignField: '_id',
+              as: 'productDetails',
             },
-          })
-            .populate('product', Product)
-            .populate('user', User);
+          },
+          { $unwind: '$productDetails' },
+          {
+            $project: {
+              product: '$productDetails.name',
+              quantity: '$totalQuantity',
+              purchasePrice: '$productDetails.purchasePrice',
+              sellingPrice: '$productDetails.price',
+            },
+          },
+        ]);
 
-          const totalProductsSold = sales.reduce(
-            (acc, cart) => acc + cart.quantity,
-            0
-          );
+        // Calculate cashier sales
+        const cashierSales = await Cart.aggregate([
+          {
+            $group: {
+              _id: '$user',
+              totalSales: {
+                $sum: { $multiply: ['$quantity', '$product.price'] },
+              },
+            },
+          },
+          { $sort: { totalSales: -1 } },
+          {
+            $lookup: {
+              from: 'users',
+              localField: '_id',
+              foreignField: '_id',
+              as: 'userDetails',
+            },
+          },
+          { $unwind: '$userDetails' },
+          { $project: { cashier: '$userDetails.name', sales: '$totalSales' } },
+        ]);
 
-          return res.status(200).json({ totalProductsSold, sales });
-        }
+        // Calculate total profit
+        const totalProfit = await Cart.aggregate([
+          {
+            $lookup: {
+              from: 'products',
+              localField: 'product',
+              foreignField: '_id',
+              as: 'productDetails',
+            },
+          },
+          { $unwind: '$productDetails' },
+          {
+            $group: {
+              _id: null,
+              totalRevenue: {
+                $sum: { $multiply: ['$quantity', '$productDetails.price'] },
+              },
+              totalCost: {
+                $sum: {
+                  $multiply: ['$quantity', '$productDetails.purchasePrice'],
+                },
+              },
+            },
+          },
+          {
+            $project: {
+              totalProfit: { $subtract: ['$totalRevenue', '$totalCost'] },
+              totalRevenue: 1,
+              totalCost: 1,
+            },
+          },
+        ]);
 
-        return res
-          .status(400)
-          .json({ msg: 'You must provide a startDate and endDate' });
+        return res.status(200).json({
+          weeklySales,
+          monthlySales,
+          topProducts,
+          cashierSales,
+          totalProfit: totalProfit[0],
+        });
       } catch (error: any) {
         console.error('GET error', error.message);
         return res.status(400).json({ error: error.message });

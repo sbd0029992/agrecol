@@ -29,10 +29,15 @@ const ProductSchema = new Schema(
       required: [true, 'Please add a weight'],
       maxlength: [4, 'Plate cannot be more than 4 characters'],
     },
+    purchasePrice: {
+      type: Number,
+      required: [false, 'Please add a purchase price'],
+      maxlength: [4, 'Purchase price cannot be more than 4 characters'],
+    },
     price: {
       type: Number,
-      required: [true, 'Please add a price'],
-      maxlength: [4, 'Plate cannot be more than 4 characters'],
+      required: [true, 'Please add a selling price'],
+      maxlength: [4, 'Selling price cannot be more than 4 characters'],
     },
     photos: {
       type: [String],

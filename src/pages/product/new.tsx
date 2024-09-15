@@ -32,6 +32,7 @@ function RegisterProduct() {
     rack: '',
     receptionDate: localDate,
     weight: 0,
+    purchasePrice: 1,
     price: 1,
     status: 1,
     photos: query.id ? [] : [],
@@ -77,6 +78,7 @@ function RegisterProduct() {
         rack: product.rack,
         receptionDate: formattedDate,
         weight: product.weight,
+        purchasePrice: product.purchasePrice,
         price: product.price,
         status: product.status,
         photos: product.photos,
@@ -323,7 +325,21 @@ function RegisterProduct() {
                 max='10000'
               />
               <h1 className='self-start text-lg text-gray-400'>
-                Precio por Kilogramo (Bs.)
+                Precio de Compra por Kilogramo (Bs.)
+              </h1>
+              <input
+                id='purchasePrice'
+                value={newProduct.purchasePrice}
+                onChange={handleChange}
+                className='h-[50px] w-full rounded-md border-2 border-fourtiary  px-2'
+                type='number'
+                min='1'
+                step='1'
+                max='1000'
+              />
+
+              <h1 className='self-start text-lg text-gray-400'>
+                Precio de Venta por Kilogramo (Bs.)
               </h1>
               <input
                 id='price'

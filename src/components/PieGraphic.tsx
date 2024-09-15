@@ -9,6 +9,7 @@ export default function PieChart({
   weeklyData,
   monthlyData,
   yearlyData,
+  cashierSales,
 }: PieChartProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [timeFrame, setTimeFrame] = useState('Daily');
@@ -21,15 +22,23 @@ export default function PieChart({
   };
 
   useEffect(() => {
-    let dataToUse: number[] | any;
-    if (timeFrame === 'Daily') {
-      dataToUse = dailyData;
-    } else if (timeFrame === 'Weekly') {
-      dataToUse = weeklyData;
-    } else if (timeFrame === 'Monthly') {
-      dataToUse = monthlyData;
-    } else if (timeFrame === 'Yearly') {
-      dataToUse = yearlyData;
+    let dataToUse: number[] = [];
+    let labelsToUse: string[] = [];
+
+    if (title === 'Cajero con mas ventas') {
+      dataToUse = cashierSales.map((cashier: any) => cashier.sales);
+      labelsToUse = cashierSales.map((cashier: any) => cashier.cashier);
+    } else {
+      if (timeFrame === 'Daily') {
+        dataToUse = dailyData ?? [];
+      } else if (timeFrame === 'Weekly') {
+        dataToUse = weeklyData ?? [];
+      } else if (timeFrame === 'Monthly') {
+        dataToUse = monthlyData ?? [];
+      } else if (timeFrame === 'Yearly') {
+        dataToUse = yearlyData ?? [];
+      }
+      labelsToUse = labels ?? [];
     }
 
     const canvas = canvasRef.current;
@@ -42,7 +51,7 @@ export default function PieChart({
     const total = dataToUse.reduce((acc: any, value: any) => acc + value, 0);
     let startAngle = 0;
 
-    dataToUse.forEach((value: any, index: any) => {
+    dataToUse.forEach((value: number, index: number) => {
       const sliceAngle = (2 * Math.PI * value) / total;
       const midAngle = startAngle + sliceAngle / 2;
       context.beginPath();
@@ -70,14 +79,23 @@ export default function PieChart({
       context.font = '13px Arial';
       context.textAlign = 'center';
       context.textBaseline = 'middle';
-      context.fillText(labels[index], textX, textY);
+      context.fillText(labelsToUse[index], textX, textY);
 
       const percentage = ((value / total) * 100).toFixed(2) + '%';
       context.fillText(percentage, textX, textY + 20);
 
       startAngle += sliceAngle;
     });
-  }, [labels, dailyData, weeklyData, monthlyData, yearlyData, timeFrame]);
+  }, [
+    labels,
+    dailyData,
+    weeklyData,
+    monthlyData,
+    yearlyData,
+    timeFrame,
+    cashierSales,
+    title,
+  ]);
 
   return (
     <div className='flex  flex-col'>

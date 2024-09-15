@@ -90,7 +90,7 @@ function Cart() {
           <div className='mt-4 flex justify-between'>
             <button
               onClick={onConfirm}
-              className='mr-2 rounded-md bg-secondary py-2 px-4 text-lg text-white hover:bg-opacity-90'
+              className='mr-2 rounded-md bg-primary py-2 px-4 text-lg text-white hover:bg-opacity-90'
             >
               Confirmar
             </button>

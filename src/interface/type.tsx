@@ -7,10 +7,11 @@ export interface PieChartProps {
   weeklyData?: number[];
   monthlyData?: number[];
   yearlyData?: number[];
+  cashierSales?: any;
 }
 export interface PieChartSoldProps {
   labels: string[];
-  data: number[];
+  data: number[] | any;
   title: string;
 }
 
@@ -61,6 +62,7 @@ export interface ProductProps {
   rack?: any;
   receptionDate?: string;
   weight?: number | any;
+  purchasePrice?: number | any;
   price?: number | any;
   status?: number;
   photos?: string[] | any;

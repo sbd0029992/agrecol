@@ -27,10 +27,13 @@ async function handler(req: any, res: any) {
       }
     case 'PUT':
       try {
-        const updateProduct = await Product.findByIdAndUpdate(id, body, {
-          new: true,
-        });
-        if (!updateProduct) return res.status(404).end(`Product not found`);
+        const updateProduct = await Product.findByIdAndUpdate(
+          id,
+          { ...body, purchasePrice: body.purchasePrice },
+          { new: true, runValidators: true }
+        );
+        if (!updateProduct)
+          return res.status(404).json({ error: 'Product not found' });
         return res.status(200).json({ updateProduct });
       } catch (error: any) {
         return res.status(400).json({ msg: error.message });

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { PieChartSoldProps } from 'interface/type';
 import React, { useEffect, useRef } from 'react';
 
@@ -28,10 +29,10 @@ export default function PieChartStock({
       return;
     }
 
-    const total = data.reduce((acc, value) => acc + value, 0);
+    const total = data.reduce((acc: any, value: any) => acc + value, 0);
     let startAngle = 0;
 
-    data.forEach((value, index) => {
+    data.forEach((value: any, index: any) => {
       const sliceAngle = (2 * Math.PI * value) / total;
       const midAngle = startAngle + sliceAngle / 2;
       context.beginPath();
